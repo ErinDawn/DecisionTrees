@@ -1,0 +1,10 @@
+Tall, Good, Yes
+Short, Bad, No
+Tall, Bad, No
+Short, Bad, No
+Tall, Good, No
+Short, Good, No
+Tall, Bad, No
+Short, Bad, No
+Short, Good, Yes
+Short, Bad, No
