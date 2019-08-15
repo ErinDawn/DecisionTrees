@@ -11,23 +11,6 @@
 using namespace std;
 
 
-
-/*
-* Function to split incoming data into its features and classes
-* TODO: use dataFeature and dataClass classes to sep. the data
-* Create vector of features and vector of classes   
-* If feature exists in vector:
-*        Look at feature option
-*        If option exists
-*            Add to option count and continue
-*        Else
-*            Add option and make option count = 1
-*    Else add feature, add feature option and make option count = 1
-* If class exists in vector:
-*        Add to class count and continue
-*    Else
-*        Create class and make class count = 1
-*/
 //Will my data have headers? If so, process may change slightly, current data samples indicate no
 //Alternately, can I have these entered by the user?
 int countColumns(string line, string delim){
@@ -50,6 +33,29 @@ int countColumns(string line, string delim){
 
 }
 
+float pi(int sampleWithOption, int sampleSize){
+    //Pi = fraction of sample with option
+    float  result;
+    result = 1.0 * sampleWithOption / sampleSize;
+    return result;
+}
+
+float entropy(float pi){
+    return -(pi * log2(pi));
+}
+
+float entropy(float pi1, float pi2){
+   return entropy(pi1) + entropy(pi2);
+}
+
+
+float InformationGain(int totalSamples, float membersOfSample1, float membersOfSample2){
+    //Entropy of a set - (sample option / total sample * entropy of that option)
+    //i.e.
+    //Information gain for height where: total = 10, tall = 4, short = 6
+    //  Entropy(height = 0.2 log2(0.2) + 0.8 log2(0.8))
+    // entropy(height) - ((6/10)*Entropy(short)) - ((4/10)* Entropy(tall))
+}
 
 /*
 * Function to build tree based on Info Gain

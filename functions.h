@@ -13,4 +13,10 @@ using namespace std;
 
 int countColumns(string line, string delim);
 
+float pi(int sampleWithOption, int sampleSize);
+
+float entropy(float pi);
+
+float entropy(float pi1, float pi2);
+
 #endif //FUNCTIONS_H
