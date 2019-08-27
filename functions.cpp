@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <array>
 #include "helperFunctions.h"
 
 using namespace std;
@@ -33,29 +34,39 @@ int countColumns(string line, string delim){
 
 }
 
-float pi(int sampleWithOption, int sampleSize){
+float pi(float sampleWithOption, float sampleSize){
     //Pi = fraction of sample with option
-    float  result;
-    result = 1.0 * sampleWithOption / sampleSize;
+   // float optionFloat = sampleWithOption * 1.0; //convert ints to floats
+   // float sampleFloat = sampleSize * 1.0;
+    float  result = sampleWithOption / sampleSize;
     return result;
 }
 
-float entropy(float pi){
+float calcEntropy(float pi){
     return -(pi * log2(pi));
 }
 
-float entropy(float pi1, float pi2){
-   return entropy(pi1) + entropy(pi2);
+float calcEntropy(float pi1, float pi2){
+   return calcEntropy(pi1) + calcEntropy(pi2);
 }
 
 
-float InformationGain(int totalSamples, float membersOfSample1, float membersOfSample2){
-    //Entropy of a set - (sample option / total sample * entropy of that option)
-    //i.e.
-    //Information gain for height where: total = 10, tall = 4, short = 6
-    //  Entropy(height = 0.2 log2(0.2) + 0.8 log2(0.8))
-    // entropy(height) - ((6/10)*Entropy(short)) - ((4/10)* Entropy(tall))
-}
+// float InformationGain(float entropySet, entropyOption[]){
+//     //InfoGain = EntropyOfSet - (sample option / total sample * entropy of that option)
+//     //i.e.
+//     //Information gain for height where: total = 10, tall = 4, short = 6
+//     //  Entropy(height = 0.2 log2(0.2) + 0.8 log2(0.8))
+//     // entropy(height) - ((6/10)*Entropy(short)) - ((4/10)* Entropy(tall))
+
+//     float sumOfEntropy = 0.0;
+//     float result = 0.0;
+//     int length = entropyOption.size();
+//     for (int i = 0; i < length; i++){
+//         sumOfEntropy = entropyOption[i] + sumOfEntropy;
+//     }
+//     result = entropySet - sumOfEntropy;
+//     return result;
+// }
 
 /*
 * Function to build tree based on Info Gain

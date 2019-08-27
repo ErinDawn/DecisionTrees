@@ -10,34 +10,6 @@
 
 using namespace std;
 
-
-class FeatureOption{
-private:
-	string name;
-	int memberCount;
-
-public:
-	FeatureOption(string optionName);
-	string getName();
-	int getMemberCount();
-	void addMember();	//
-};
-
-
-class DataFeature{
-private:
-	string name;
-	vector<FeatureOption> optionList;
-
-public:
-	DataFeature(string featureName, string featureOption);
-	string getName();
-	void addOption(string featureOption);
-	int isOptionMember(string optionName);
-};
-
-
-
 class DataClass{
 private:
 	string name;
@@ -49,6 +21,42 @@ public:
 	int getMembers();
 	void addMember();
 };
+
+class FeatureOption{
+private:
+	string name;
+	int memberCount;
+	vector<DataClass> associatedClass;
+
+public:
+	FeatureOption(string optionName);
+	string getName();
+	int getMemberCount();
+	void addMember();	//
+	void addClassRelationship(string className);
+	int getAssociatedClassCountAtIndex(int index);
+	string getAssociatedClassNameAtIndex(int index);
+};
+
+
+class DataFeature{
+private:
+	string name;
+	vector<FeatureOption> optionList;
+
+public:	
+	DataFeature(string featureName, string featureOption);
+	string getName();
+	void addOption(string featureOption);
+	int isOptionMember(string optionName);
+	int getOptionCountAtIndex(int index);
+	float entropyOfSet(int totalSamples);
+	int getMembers();
+};
+
+
+
+
 
 
 class DataInfo{
@@ -64,10 +72,13 @@ public:
 	//bool isFeatureMember(string featureName);	refactored below
 	int isFeatureMember(string featureName);
 	bool isClassMember(string className);	//not in use
-	float entropyOfSet();	//Sum of entropy of all classes
+	float totalEntropy();	//Sum of entropy of all classes
 	string getClassNameAtIndex(int index);
 	int getClassCountAtIndex(int index);
 	string getFeatureNameAtIndex(int index);
+	int getFeatureOptionCountAtIndex(int index);
+	int getSampleCount();
+	float getEntropyOfFeatureAtIndex(int index);
 };
 
 #endif //DATAFEATURE_H

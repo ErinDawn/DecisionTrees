@@ -24,22 +24,33 @@ int main() {
     float temp, value1, value2;
     float entropyValue;
     float entropyValue2;
+    float entropy[2];
     float informationGain;
     entropyValue = pi(4, 10);
+    entropyValue = calcEntropy(entropyValue);
     cout << "********************************" << endl;
     cout << entropyValue << endl;
     cout << "********************************" << endl;
 
     //entropy for short
-    temp = (1.0/6.0);
-    // cout << "The float value is: " << temp << endl;
-    value1 = entropy(temp);
-    cout << "The first entropy value is: " << value1 << endl;
-    temp = (5.0/6.0);
-    value2 = entropy(temp);
-    cout << "The second entropy value is: " << value2 << endl;
-    entropyValue = entropy(value1, value2);
-    cout << "The entropy for \"short\" is: " << entropyValue << endl;
+    // temp = (1.0/6.0);
+    // // cout << "The float value is: " << temp << endl;
+    // value1 = entropy(temp);
+    // cout << "The first entropy value is: " << value1 << endl;
+    // temp = (5.0/6.0);
+    // value2 = entropy(temp);
+    // cout << "The second entropy value is: " << value2 << endl;
+    // entropyValue = entropy(value1, value2);
+    // cout << "The entropy for \"short\" is: " << entropyValue << endl;
+
+    // temp = (1.0/6.0);
+    // // cout << "The float value is: " << temp << endl;
+    // entropy[0] = entropy(temp);
+    // temp = (5.0/6.0);
+    // entropy[1] = entropy(temp);
+    // entropyValue = entropy(value1, value2);
+    // cout << "The entropy for \"short\" is: " << entropyValue << endl;
+
 
 
 
@@ -71,11 +82,11 @@ int main() {
 
     //Construct DataInfo with stats about overall data
     //Using BBall data
+
     DataInfo dataInfo;
     
     dataInfo.createClass("yes");
     dataInfo.createClass("yes");
-    cout << "2 yes classes added successfully" << endl;
     dataInfo.createClass("no");
     dataInfo.createClass("no");
     dataInfo.createClass("no");
@@ -84,38 +95,36 @@ int main() {
     dataInfo.createClass("no");
     dataInfo.createClass("no");
     dataInfo.createClass("no");
-    cout << "8 no classes added sucessfully" << endl;
     dataInfo.createFeature("height", "short");
-    // dataInfo.createFeature("height", "short");
-    // dataInfo.createFeature("height", "short");
-    // dataInfo.createFeature("height", "short");
-    // dataInfo.createFeature("height", "short");
-    // dataInfo.createFeature("height", "short");
-    // cout << "6 short classes added successfully" << endl;
-    // dataInfo.createFeature("height", "tall");
-    // dataInfo.createFeature("height", "tall");
-    // dataInfo.createFeature("height", "tall");
-    // dataInfo.createFeature("height", "tall");
-    // cout << "4 tall classes added successfully" << endl;
-    // dataInfo.createFeature("dexterity", "good");
-    // dataInfo.createFeature("dexterity", "good");
-    // dataInfo.createFeature("dexterity", "good");
-    // dataInfo.createFeature("dexterity", "good");
-    // dataInfo.createFeature("dexterity", "bad");
-    // dataInfo.createFeature("dexterity", "bad");
-    // dataInfo.createFeature("dexterity", "bad");
-    // dataInfo.createFeature("dexterity", "bad");
-    // dataInfo.createFeature("dexterity", "bad");
-    // dataInfo.createFeature("dexterity", "bad");
-    // cout << "4 good and 6 bad features addedd successfully" << endl;
+    dataInfo.createFeature("height", "short");
+    dataInfo.createFeature("height", "short");
+    dataInfo.createFeature("height", "short");
+    dataInfo.createFeature("height", "short");
+    dataInfo.createFeature("height", "short");
+    dataInfo.createFeature("height", "tall");
+    dataInfo.createFeature("height", "tall");
+    dataInfo.createFeature("height", "tall");
+    dataInfo.createFeature("height", "tall");
+    dataInfo.createFeature("dexterity", "good");
+    dataInfo.createFeature("dexterity", "good");
+    dataInfo.createFeature("dexterity", "good");
+    dataInfo.createFeature("dexterity", "good");
+    dataInfo.createFeature("dexterity", "bad");
+    dataInfo.createFeature("dexterity", "bad");
+    dataInfo.createFeature("dexterity", "bad");
+    dataInfo.createFeature("dexterity", "bad");
+    dataInfo.createFeature("dexterity", "bad");
+    dataInfo.createFeature("dexterity", "bad");
+    cout << endl << endl;
 
-    // float result = dataInfo.entropyOfSet();
-    // cout << "Entropy of set is: " << result << " ::: expected = 0.722" << endl;
+    float result = dataInfo.totalEntropy();
+    cout << "Entropy of set is: " << result << " ::: expected = 0.722" << endl;
 
     cout << "We added some stuff" << endl;
     cout << endl;
     string classname1, classname2, featureName1, featureName2;
-    int c1 = 0, c2 = 0, f1 = 0, f2 = 0, entropy = 0;
+    int c1 = 0, c2 = 0;
+    float f1 = 0.0, f2 = 0.0;
     classname1 = dataInfo.getClassNameAtIndex(0);
     c1 = dataInfo.getClassCountAtIndex(0);
     classname2 = dataInfo.getClassNameAtIndex(1);
@@ -125,6 +134,11 @@ int main() {
     cout << classname1 << " has a total count of: " << c1 << endl;
     cout << classname2 << " has a total count of " << c2 << endl;
     cout << "Total sample size is: " << c1 + c2 << endl;
+
+    f1 = dataInfo.getEntropyOfFeatureAtIndex(0);
+    f2 = dataInfo.getEntropyOfFeatureAtIndex(1);
+    cout << "The entropy for height is: " << f1 << endl;
+    cout << "The entropy for dexterity is: " << f2 << endl;
 
     return 0;
 

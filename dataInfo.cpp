@@ -28,12 +28,51 @@ void FeatureOption::addMember(){
 	memberCount++;
 }
 
+void FeatureOption::addClassRelationship(string className){
+	//check associatedClass to see if class exists
+	int length = associatedClass.size();
+	int tempLength = 0;
+	int i = 0;
+	string temp;
+	bool exists = false;
+	if (length > 0){
+		for (i = 0; i < length; i++){
+			temp = associatedClass[i].getName();
+			if (temp == className){
+				exists = true;
+				break;
+			}
+		}
+	}
+	if (exists) {
+		associatedClass[i].addMember();
+		tempLength = associatedClass[i].getMembers();
+	} else{
+		DataClass newClass(className);
+		tempLength = newClass.getMembers();
+		associatedClass.push_back(newClass);
+	}
+}
+/***************************************************************
+******Should this be by name instead? Potential refactor********
+***************************************************************/
+int FeatureOption::getAssociatedClassCountAtIndex(int index){
+	int result = associatedClass[index].getMembers();
+	return result;
+}
+
+string FeatureOption::getAssociatedClassNameAtIndex(int index){
+	string className = associatedClass[index].getName();
+	return className;
+}
+
 /////////////////End feature option prototypes/////////////
 
 
 ///////////////////////////////////////////////////////////
 ////////////DataFeature function prototypes////////////////
 DataFeature::DataFeature(string featureName, string featureOption){
+	name = featureName;
 	addOption(featureOption);
 }
 
@@ -41,35 +80,31 @@ string DataFeature::getName(){
 	return name;
 }
 
+int DataFeature::getMembers(){
+	int length = optionList.size();
+	return length;
+}
+
 void DataFeature::addOption(string featureOption){
-	cout << "Add option function entered (dataFeature)" << endl;
 	//Does featureOption exist?
 	string temp;
 	int length, i;
 	bool exists = false;
 	length = optionList.size();
-	cout << "Length of option list is: " << length << endl;
 	for (i = 0; i > length; i++){
-		cout << "FOR loop entered" << endl;
 		temp = optionList[i].getName();
-		cout << "feature option name is: " << temp << endl;
 		if (featureOption == temp){
 			exists = true;
-			cout << temp << " exists already" << endl;
 			break;
 		}
 	}
 	if (exists){	//add one to that count
 		optionList[i].addMember();
-		cout << featureOption << " count increased" << endl;
 	} else{
 		//create new option
 		FeatureOption newOption(featureOption);
-		//newOption.addMember();
 		optionList.push_back(newOption);
-		cout << "new " << featureOption << " option added" << endl;
 		length = optionList.size();
-		cout << "Length of option list is: " << length << endl;
 	}
 }
 
@@ -82,6 +117,30 @@ int DataFeature::isOptionMember(string optionName){
 		}
 	}
 	return -1;
+}
+
+int DataFeature::getOptionCountAtIndex(int index){
+	int temp;
+	temp = optionList[index].getMemberCount();
+	return temp;
+}
+
+float DataFeature::entropyOfSet(int totalSamples){
+	int length = optionList.size();
+	int memberCount = 0;
+	float result = 0.0;
+	float piVal = 0.0;
+	float entropyVal = 0.0;
+
+
+	for (int i = 0; i < length; i++){
+		memberCount = optionList[i].getMemberCount();
+		piVal = pi(memberCount, totalSamples);
+		entropyVal = calcEntropy(piVal);
+		result = result + entropyVal;
+	}
+
+	return result;
 }
 
 /////////////////End DataFeature prototypes////////////////
@@ -118,8 +177,7 @@ DataInfo::DataInfo(){	//Constructor
 void DataInfo::createClass(string className){	//Create a new data class
 	//check classList to see if class exists
 	int length = classList.size();
-	cout << "Current number of classes is: " << length << endl;
-	int tempLength = 0;	//*********************DEBUGGING******************
+	int tempLength = 0;
 	int i = 0;
 	string temp;
 	bool exists = false;
@@ -128,25 +186,24 @@ void DataInfo::createClass(string className){	//Create a new data class
 			temp = classList[i].getName();
 			if (temp == className){
 				exists = true;
-				cout << className << " already exists" << endl;
+				break;
 			}
 		}
 	}
 	if (exists) {
-		cout << "Adding 1 to " << className << " count" << endl;
 		classList[i].addMember();
-				tempLength = classList[i].getMembers();
-		cout << "New " << className << " count is: " <<  tempLength << endl;
+		tempLength = classList[i].getMembers();
 	} else{
-		cout << className << " does not yet exist... Creating class now" << endl;
 		DataClass newClass(className);
 		tempLength = newClass.getMembers();
-		cout << "The number of members in the new class should = 1... actual members = " << tempLength << endl;
 		classList.push_back(newClass);
 	}
 	
 }
 
+/****************************
+******TODO*******************
+*****************************/
 void DataInfo::createFeature(string featureName, string featureOption){	//create a new data feature
 	//Check featureList to see if feature exists
 	int fIndex = isFeatureMember(featureName);
@@ -155,8 +212,10 @@ void DataInfo::createFeature(string featureName, string featureOption){	//create
 		oIndex = featureList[fIndex].isOptionMember(featureOption);
 		if (oIndex >= 0){
 			//option exists
-			featureList[fIndex].addOption(featureOption);
+			featureList[fIndex].addOption(featureOption);	//auto adds member if option 
 			//featureList[fIndex].optionList[oIndex].addMember();
+		} else {
+
 		}
 
 	} else {
@@ -172,6 +231,18 @@ int DataInfo::getNumOfFeatures(){	// return the number of data features
 
 int DataInfo::getNumOfClasses(){	//return he number of data classes
 	return classList.size();
+}
+
+int DataInfo::getSampleCount(){	//adds all members up to give total sample size, incl. all classes
+	int sampleCount = 0;
+	int length = 0;
+	int temp;
+	length = getNumOfClasses();
+	for (int i =0; i < length; i++){
+		temp = getClassCountAtIndex(i);
+		sampleCount = sampleCount + temp;
+	}
+	return sampleCount;
 }
 
 string DataInfo::getClassNameAtIndex(int index){
@@ -191,6 +262,12 @@ string DataInfo::getFeatureNameAtIndex(int index){
 		return temp;
 }
 
+//get number of options
+int DataInfo::getFeatureOptionCountAtIndex(int index){
+	int temp;
+	temp = featureList[index].getMembers();
+	return temp;
+}
 
 bool DataInfo::isClassMember(string className){
 	int length = classList.size();
@@ -205,34 +282,61 @@ bool DataInfo::isClassMember(string className){
 
 int DataInfo::isFeatureMember(string featureName){
 	int length = featureList.size();
-	for (int i; i < length; i++){
-		string temp = featureList[i].getName();
+	string temp;
+	for (int i = 0; i < length; i++){
+		temp = featureList[i].getName();
 		if (temp == featureName){
 			return i;
 		}
 	}
+	cout << "Feature " << featureName << " not found" << endl;
 	return -1;
 }
 
-float DataInfo::entropyOfSet(){
-	int class1 = 0, class2 = 0, setSize = 0;
-	float val1 = 0.0, val2 = 0.0, val3 = 0.0;
-	setSize = classList.size();
-	if (setSize == 2){
-		class1 = classList[0].getMembers();
-		class2 = classList[1].getMembers();
+float DataInfo::totalEntropy(){
+	int setSize;
+	float result = 0.0;
+	float piVal = 0.0;
+	float entropyVal = 0.0;
 
-		val1 = pi(class1, setSize);
-		val2 = pi(class2, setSize);
-		val3 = entropy(val1) + entropy(val2);
+	setSize = getSampleCount();
+	int length = getNumOfClasses();
+	int memberCount;
 
-	} else {
-		cout << "entropyOfSet function error" << endl;
-		return -999;
+	for (int i = 0; i < length; i++){
+		memberCount = classList[i].getMembers();
+		piVal = pi(memberCount, setSize);
+		entropyVal = calcEntropy(piVal);
+		result = result + entropyVal;
 	}
-	return val3;
-	//sum of entropy for each class - i.e.
-	// entropy(0.2) + entropy(0.8)
+
+	return result;
+}
+
+float DataInfo::getEntropyOfFeatureAtIndex(int index){
+	//**********TODO - Correct - need a class count for each FeatureOption
+	//
+	int temp;
+	int i;
+	int optionListLength = featureList[index].optionList.size();
+	int associatedClassListLength;
+	int j = 0;
+	//Iterate through the option list - 
+	//get all associated class counts
+	//include each pi-entropy in overall sum
+	for (i = 0; i < optionListLength; i++ ){
+		int associatedClassListLength = featureList[index].optionList[i].associatedClass.size();
+		for( j = 0; j < associatedClassListLength; j++){
+			temp = featureList[index].optionList[i].getAssociatedClassCountAtIndex(j);
+		}
+	}
+	
+
+
+	float result;
+	int totalSample = getSampleCount();
+	result = featureList[index].entropyOfSet(totalSample);
+	return result;
 }
 
 ///////////////////End DataInfo prototypes//////////////////
