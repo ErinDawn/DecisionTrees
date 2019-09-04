@@ -10,135 +10,107 @@
 using namespace std;
 
 int main() {
+int n_samples;
+    int n_features;
+    int n_classes;
 
-    int numOfFeatures = 2;
-    int numOfClasses = 2;
-    int membersOfTall = 4;
-    int membersOfShort = 6;
-    int membersofGood = 4;
-    int membersOfBad = 6;
-    int numOfProfessionals = 2;
-    int numOfAmateurs = 8;
-
-
-    float temp, value1, value2;
-    float entropyValue;
-    float entropyValue2;
-    float entropy[2];
-    float informationGain;
-    entropyValue = pi(4, 10);
-    entropyValue = calcEntropy(entropyValue);
-    cout << "********************************" << endl;
-    cout << entropyValue << endl;
-    cout << "********************************" << endl;
-
-    //entropy for short
-    // temp = (1.0/6.0);
-    // // cout << "The float value is: " << temp << endl;
-    // value1 = entropy(temp);
-    // cout << "The first entropy value is: " << value1 << endl;
-    // temp = (5.0/6.0);
-    // value2 = entropy(temp);
-    // cout << "The second entropy value is: " << value2 << endl;
-    // entropyValue = entropy(value1, value2);
-    // cout << "The entropy for \"short\" is: " << entropyValue << endl;
-
-    // temp = (1.0/6.0);
-    // // cout << "The float value is: " << temp << endl;
-    // entropy[0] = entropy(temp);
-    // temp = (5.0/6.0);
-    // entropy[1] = entropy(temp);
-    // entropyValue = entropy(value1, value2);
-    // cout << "The entropy for \"short\" is: " << entropyValue << endl;
+    //Delete the following manual load in********************************************
+    n_samples = 10;
+    n_features = 2;
+    n_classes = 2;
+    string featureList[n_features];
+    string classList[n_classes];
 
 
+    featureList[0] = "height";
+    featureList[1] = "dexterity";
+    classList[0] = "yes";
+    classList[1] = "no";
+    //*******************************************************************************
 
-
-    //************************************************************************
-    //read text in line by line, separated by a deliminator
-    //Print it line by line removing white space
-    //this will help to prep the data
-
-    // int featureCount = 0;
-    // int classOptions = 0;
-
-    // string line;
-    // ifstream dataFile("example.txt");
-    // if (dataFile.is_open()) {
-    //     while (getline (dataFile, line)) {
-    //         cout << line << '\n';
-    //         //count how many items there are, assume they are separated by comma
-    //         featureCount = countColumns(line, ",");
-    //     }
-    //     dataFile.close();
-    // } else {
-    //     cout << "Unable to open file" << endl;
-    // }
-
-    // cout << endl << featureCount << " features counted" << endl;
-    // cout << classOptions << " different classes counted" << endl;   //currently not handling
-
-    //end read in****************************************************************
-
-    //Construct DataInfo with stats about overall data
-    //Using BBall data
-
-    DataInfo dataInfo;
+    string dataArray[n_samples][n_features];
+    string target[n_samples];
     
-    dataInfo.createClass("yes");
-    dataInfo.createClass("yes");
-    dataInfo.createClass("no");
-    dataInfo.createClass("no");
-    dataInfo.createClass("no");
-    dataInfo.createClass("no");
-    dataInfo.createClass("no");
-    dataInfo.createClass("no");
-    dataInfo.createClass("no");
-    dataInfo.createClass("no");
-    dataInfo.createFeature("height", "short");
-    dataInfo.createFeature("height", "short");
-    dataInfo.createFeature("height", "short");
-    dataInfo.createFeature("height", "short");
-    dataInfo.createFeature("height", "short");
-    dataInfo.createFeature("height", "short");
-    dataInfo.createFeature("height", "tall");
-    dataInfo.createFeature("height", "tall");
-    dataInfo.createFeature("height", "tall");
-    dataInfo.createFeature("height", "tall");
-    dataInfo.createFeature("dexterity", "good");
-    dataInfo.createFeature("dexterity", "good");
-    dataInfo.createFeature("dexterity", "good");
-    dataInfo.createFeature("dexterity", "good");
-    dataInfo.createFeature("dexterity", "bad");
-    dataInfo.createFeature("dexterity", "bad");
-    dataInfo.createFeature("dexterity", "bad");
-    dataInfo.createFeature("dexterity", "bad");
-    dataInfo.createFeature("dexterity", "bad");
-    dataInfo.createFeature("dexterity", "bad");
-    cout << endl << endl;
+    //Refactor below - Load data in using function***********************************
+    //read in the data to each corresponding place in the arrays
+    dataArray[0][0] = "tall";
+    dataArray[0][1] = "good";
+    dataArray[1][0] = "short";
+    dataArray[1][1] = "bad";
+    dataArray[2][0] = "tall";
+    dataArray[2][1] = "bad";
+    dataArray[3][0] = "short";
+    dataArray[3][1] = "bad";
+    dataArray[4][0] = "tall";
+    dataArray[4][1] = "good";
+    dataArray[5][0] = "short";
+    dataArray[5][1] = "good";
+    dataArray[6][0] = "tall";
+    dataArray[6][1] = "bad";
+    dataArray[7][0] = "short";
+    dataArray[7][1] = "bad";
+    dataArray[8][0] = "short";
+    dataArray[8][1] = "good";
+    dataArray[9][0] = "short";
+    dataArray[9][1] = "bad";
 
-    float result = dataInfo.totalEntropy();
-    cout << "Entropy of set is: " << result << " ::: expected = 0.722" << endl;
+    target[0] = "yes";
+    target[1] = "no";
+    target[2] = "no";
+    target[3] = "no";
+    target[4] = "no";
+    target[5] = "no";
+    target[6] = "no";
+    target[7] = "no";
+    target[8] = "yes";
+    target[9] = "no";
+    //Refactor above**********************************************************
 
-    cout << "We added some stuff" << endl;
-    cout << endl;
-    string classname1, classname2, featureName1, featureName2;
-    int c1 = 0, c2 = 0;
-    float f1 = 0.0, f2 = 0.0;
-    classname1 = dataInfo.getClassNameAtIndex(0);
-    c1 = dataInfo.getClassCountAtIndex(0);
-    classname2 = dataInfo.getClassNameAtIndex(1);
-    c2 = dataInfo.getClassCountAtIndex(1);
+    //calc the entropy of set.
+    int positiveCount = 0;
+    int negativeCount = 0;
+    int subSet = n_samples;
 
-    cout << "The final set counts are:" << endl;
-    cout << classname1 << " has a total count of: " << c1 << endl;
-    cout << classname2 << " has a total count of " << c2 << endl;
-    cout << "Total sample size is: " << c1 + c2 << endl;
+    //Calculate the positive members of the set
+    for (int i = 0; i < subSet; i++){
+        if ("yes" == target[i]){
+            positiveCount++;
+        }
+    }
 
-    f1 = dataInfo.getEntropyOfFeatureAtIndex(0);
-    f2 = dataInfo.getEntropyOfFeatureAtIndex(1);
-    cout << "The entropy for height is: " << f1 << endl;
-    cout << "The entropy for dexterity is: " << f2 << endl;
+    //calcualte the negative members of the set
+    for (int i = 0; i < subSet; i++){
+        if ("no" == target[i]){
+            negativeCount++;
+        }
+    }
+    //calculate the entropy for the entire set
+    float positiveE = pi(positiveCount, subSet);
+    float negativeE = pi(8, subSet);
+    float setEntropy = calcEntropy(positiveE, negativeE);
+    cout << "Entropy of set is " << setEntropy << endl;
+
+    //Count of members with particular attribute
+    //Count of corresponding members with 'positive'
+    //tally corresponding negative members
+    float tallEntropy, shortEntropy;
+
+    
+    tallEntropy = attributeEntropy(positiveCount, negativeCount, subSet);
+    //parameters(posWithAttribute, negWithAttribute, totalSampleSize)
+    cout << "Tall entropy is: " << tallEntropy << endl;
+
+
+    //TODO: repeat above process - turn this into function for single feature
+    shortEntropy = attributeEntropy(1, 5, 10);
+    cout << "The entropy for short is: " << shortEntropy << endl;
+
+
+
+    //Calculating information gain
+    float gain;
+    gain = infoGain(setEntropy, tallEntropy, shortEntropy);
+    cout << "Gain for height is: " << gain << endl;
 
     return 0;
 

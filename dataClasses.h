@@ -8,17 +8,16 @@
 using namespace std;
 
 //Make entropy a member? Or keep separate? If data changes, entropy changes... but so does member count etc.
-class DataClass{
+class Node{
 private:
 	string name;
-	int members;
+	Node* nextA;
+	Node* nextB
 
 public:
-	DataClass(string className);
-	string getName();
-	int getMembers();
-	void addMember();
-	float getEntropy();
+	Mode();
+	Node* goToNextNode(string result);
+
 };
 
 #endif //DATACLASS_H

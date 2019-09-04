@@ -35,40 +35,29 @@ int countColumns(string line, string delim){
 }
 
 float pi(float sampleWithOption, float sampleSize){
-    //Pi = fraction of sample with option
-   // float optionFloat = sampleWithOption * 1.0; //convert ints to floats
-   // float sampleFloat = sampleSize * 1.0;
     float  result = sampleWithOption / sampleSize;
     return result;
-}
+};
 
 float calcEntropy(float pi){
     return -(pi * log2(pi));
-}
+};
 
-float calcEntropy(float pi1, float pi2){
+float calcEntropy(float pi1, float pi2){    //Can take an array of pi, use a for loop to entropy and add
    return calcEntropy(pi1) + calcEntropy(pi2);
-}
+};
 
+float attributeEntropy(int pos, int neg, int sampleSize){
+    int subSample = pos + neg;
+    float piPos, piNeg;
+    piPos = pi(pos, subSample);
+    piNeg = pi(neg, subSample);
+    float temp = calcEntropy(piPos, piNeg);
+    float result = temp * (pi(subSample, sampleSize));
+    return result; 
+};
 
-// float InformationGain(float entropySet, entropyOption[]){
-//     //InfoGain = EntropyOfSet - (sample option / total sample * entropy of that option)
-//     //i.e.
-//     //Information gain for height where: total = 10, tall = 4, short = 6
-//     //  Entropy(height = 0.2 log2(0.2) + 0.8 log2(0.8))
-//     // entropy(height) - ((6/10)*Entropy(short)) - ((4/10)* Entropy(tall))
-
-//     float sumOfEntropy = 0.0;
-//     float result = 0.0;
-//     int length = entropyOption.size();
-//     for (int i = 0; i < length; i++){
-//         sumOfEntropy = entropyOption[i] + sumOfEntropy;
-//     }
-//     result = entropySet - sumOfEntropy;
-//     return result;
-// }
-
-/*
-* Function to build tree based on Info Gain
-*/
-
+float infoGain(float setEntropy, float entropy1, float entropy2){
+    float gain = setEntropy - entropy1 - entropy2;
+    return gain;
+};

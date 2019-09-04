@@ -19,6 +19,8 @@ float calcEntropy(float pi);
 
 float calcEntropy(float pi1, float pi2);
 
-// float InformationGain(float entropy[]);
+float attributeEntropy(int pos, int neg, int sampleSize);
+
+float infoGain(float setEntropy, float entropy1, float entropy2);
 
 #endif //FUNCTIONS_H

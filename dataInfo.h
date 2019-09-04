@@ -51,7 +51,9 @@ public:
 	int isOptionMember(string optionName);
 	int getOptionCountAtIndex(int index);
 	float entropyOfSet(int totalSamples);
-	int getMembers();
+	int getNumOfOptions();	//returns number of options
+	void addClassOptionRelationship(string optionName, string className);
+	//int getClassOptionRelationship(string optionname, string className);
 };
 
 

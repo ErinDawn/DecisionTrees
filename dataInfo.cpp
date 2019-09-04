@@ -80,31 +80,18 @@ string DataFeature::getName(){
 	return name;
 }
 
-int DataFeature::getMembers(){
+int DataFeature::getNumOfOptions(){
 	int length = optionList.size();
 	return length;
 }
 
 void DataFeature::addOption(string featureOption){
-	//Does featureOption exist?
-	string temp;
-	int length, i;
-	bool exists = false;
-	length = optionList.size();
-	for (i = 0; i > length; i++){
-		temp = optionList[i].getName();
-		if (featureOption == temp){
-			exists = true;
-			break;
-		}
-	}
-	if (exists){	//add one to that count
-		optionList[i].addMember();
-	} else{
-		//create new option
+	int index = isOptionMember(featureOption);
+	if (index == -1){	//option does not exist. Create new option
 		FeatureOption newOption(featureOption);
 		optionList.push_back(newOption);
-		length = optionList.size();
+	} else {	//option already exists. Increment members
+		optionList[index].addMember();	
 	}
 }
 
@@ -141,6 +128,24 @@ float DataFeature::entropyOfSet(int totalSamples){
 	}
 
 	return result;
+}
+
+void DataFeature::addClassOptionRelationship(string optionName, string className){
+	int index = isOptionMember(optionName);
+	if (index == -1){
+		cout << "Error. " << optionName << " is not a valid option" << endl;
+	} else {
+		optionList[index].addClassRelationship(className);
+	}
+}
+
+int DataFeature::getClassOptionRelationship(string optionName, string className){
+	int index = isOptionMember(optionName);
+	if (index == -1){
+		cout << "Error. " << optionName << " is not a valid option" << endl;
+	} else {
+		optionList[index].getAssociatedClassCountAtIndex();
+	}
 }
 
 /////////////////End DataFeature prototypes////////////////
@@ -201,28 +206,14 @@ void DataInfo::createClass(string className){	//Create a new data class
 	
 }
 
-/****************************
-******TODO*******************
-*****************************/
 void DataInfo::createFeature(string featureName, string featureOption){	//create a new data feature
-	//Check featureList to see if feature exists
 	int fIndex = isFeatureMember(featureName);
-	if (fIndex >= 0){
-		int oIndex;
-		oIndex = featureList[fIndex].isOptionMember(featureOption);
-		if (oIndex >= 0){
-			//option exists
-			featureList[fIndex].addOption(featureOption);	//auto adds member if option 
-			//featureList[fIndex].optionList[oIndex].addMember();
-		} else {
-
-		}
-
-	} else {
+	if (fIndex == -1){	//feature does not exist - create new feature
 		DataFeature newFeature(featureName, featureOption);
 		featureList.push_back(newFeature);
-	}
-	
+	} else {	//feature exists, add option at optionIndex
+		featureList[fIndex].addOption(featureOption);
+	}	
 }
 
 int DataInfo::getNumOfFeatures(){	// return the number of data features
@@ -265,7 +256,7 @@ string DataInfo::getFeatureNameAtIndex(int index){
 //get number of options
 int DataInfo::getFeatureOptionCountAtIndex(int index){
 	int temp;
-	temp = featureList[index].getMembers();
+	temp = featureList[index].getNumOfOptions();
 	return temp;
 }
 
@@ -316,27 +307,27 @@ float DataInfo::totalEntropy(){
 float DataInfo::getEntropyOfFeatureAtIndex(int index){
 	//**********TODO - Correct - need a class count for each FeatureOption
 	//
-	int temp;
-	int i;
-	int optionListLength = featureList[index].optionList.size();
-	int associatedClassListLength;
-	int j = 0;
-	//Iterate through the option list - 
-	//get all associated class counts
-	//include each pi-entropy in overall sum
-	for (i = 0; i < optionListLength; i++ ){
-		int associatedClassListLength = featureList[index].optionList[i].associatedClass.size();
-		for( j = 0; j < associatedClassListLength; j++){
-			temp = featureList[index].optionList[i].getAssociatedClassCountAtIndex(j);
-		}
-	}
+	// int temp;
+	// int i;
+	// int optionListLength = featureList[index].getNumOfOptions();
+	// int associatedClassListLength;
+	// int j = 0;
+	// //Iterate through the option list - 
+	// //get all associated class counts
+	// //include each pi-entropy in overall sum
+	// for (i = 0; i < optionListLength; i++ ){
+	// 	int associatedClassListLength = featureList[index].optionList[i].associatedClass.size();
+	// 	for( j = 0; j < associatedClassListLength; j++){
+	// 		temp = featureList[index].optionList[i].getAssociatedClassCountAtIndex(j);
+	// 	}
+	// }
 	
 
 
-	float result;
-	int totalSample = getSampleCount();
-	result = featureList[index].entropyOfSet(totalSample);
-	return result;
+	// float result;
+	// int totalSample = getSampleCount();
+	// result = featureList[index].entropyOfSet(totalSample);
+	return 9999.9990;
 }
 
 ///////////////////End DataInfo prototypes//////////////////
