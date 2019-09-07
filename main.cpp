@@ -12,6 +12,18 @@ using namespace std;
 
 
 int main() {
+
+////////////////////////////////////////////////////////////////////////////////////
+    //create root node for tree
+    //if all examples are positive 
+        //return a leaf with label +
+    //if all examples are negative
+        //return a leaf with label -
+    //if no more features remain
+        //return a single node with a label = most common value for this branch
+
+    
+
 int n_samples;
     int n_features;
     int n_classes;
@@ -21,12 +33,13 @@ int n_samples;
     n_features = 2;
     n_classes = 2;
 
+
+/**********************************************************
     int featureList[n_features][5];     //set an array with feature row, value column
     //set all values at -1 to begin - this denotes no feature value
     for (int i = 0; i < n_features; i++){
         for (int j = 0; j < 5; j++){
             featureList[i][j] = -1;
-            cout << "Feature " << i << " with vale index " << j << " is set to -1" << endl;
         }
     }
 
@@ -35,11 +48,10 @@ int n_samples;
     featureList[1][0] = 0;  //dexterity, good
     featureList[1][1] = 1;  //dexterity, bad
 
-
     string classList[n_classes];
     classList[0] = "yes";
-    classList[1] = "no";
-    //*******************************************************************************
+    // classList[1] = "no";
+*******************************************************************************/
 
     int dataArray[n_samples][n_features];
     int target[n_samples];
@@ -154,7 +166,7 @@ int n_samples;
             }
         }
     }
-    cout << "The counts using array and loop are: " << endl;
+
     //calc the entropy for each feature value with a count
     int featureNegCount;
     subSet = 10;
@@ -166,8 +178,6 @@ int n_samples;
         }
     }
     cout << "*************************************************" << endl;
-    cout << "*************************************************" << endl;
-    cout << endl << endl;
     
     //calculate the entropy for the entire set
     float positiveE = pi(positiveCount, subSet);
@@ -175,13 +185,41 @@ int n_samples;
     float setEntropy = calcEntropy(positiveE, negativeE);
     cout << "Entropy of set is " << setEntropy << endl;
 
-    //Calculating information gain
+    //Calculating information gain and selecting the highest gain from array of gains
     float gain[n_features];
+    float highestGain = 0;
+    int highestGainIndex;
+
     for (int i = 0; i < n_features; i++){
         gain[i] = calcInfoGain(setEntropy, featureEntropy[i][0], featureEntropy[i][1],
                         featureEntropy[i][2], featureEntropy[i][3], featureEntropy[i][4]);
+        if (gain[i] > highestGain){
+            highestGain = gain[i];
+            highestGainIndex = i;
+        }
     }
+    //select largest info gain
+    cout << "The highest gain is index " << highestGainIndex;
+    cout << " with a gain of: " << highestGain << endl << endl;
+
     cout << "Gain for height is: " << gain[0] << endl;
+    cout << "Gain for dexterity is: " << gain[1] << endl;
+
+    //highest gain selected, create node using the selected attribute
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+    //for all possible values of feature:
+        //add a branch for that value
+        //Let E(a) be a subset of samples which all have value a for feataure
+        //if the subset E(a) is empty - 
+            //add a leaf with the most common classification for value a
+        //else
+            //add a new subtree: IDE(E(a),Classes,FeatureSet - {Feature})
+        // end if
+    //end for
+
     return 0;
 }
 

@@ -51,21 +51,11 @@ float attributeEntropy(int pos, int neg, int sampleSize){
     int subSample = pos + neg;
     float piPos, piNeg;
     piPos = pi(pos, subSample);
-    cout << "pi of pos " << pos << " and subSample " << subSample << " results in: " << piPos << endl;
     piNeg = pi(neg, subSample);
-    cout << "pi of neg " << neg << " and subSample " << subSample << " results in: " << piNeg << endl;
     float temp = calcEntropy(piPos, piNeg);
-    cout << "calculated entropy = " << temp << endl;
     float result = temp * (pi(subSample, sampleSize));
-    cout << "calculated by the final fraction of : " << subSample << " / " << sampleSize << endl;
-    cout << "Result = " << result << endl;
     return result; 
 }
-
-// float calcInfoGain(float setEntropy, float entropy1, float entropy2){
-//     float gain = (setEntropy - entropy1 - entropy2);
-//     return gain;
-// }
 
 float calcInfoGain(float setEntropy, float entropy1, float entropy2, float entropy3, float entropy4, float entropy5){
     float gain = (setEntropy - entropy1 - entropy2 - entropy3 - entropy4 - entropy5);

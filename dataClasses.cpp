@@ -6,16 +6,21 @@
 using namespace std;
 
 
-Node::Node(string name){
-	name = name;
+Node::Node(int feature, bool classifier){	//if classifier is true, resulting class node
+	feature = feature;
+	classifier = classifier;
 };
 
 Node* Node::goToNode(int index){
-	return attributes[index];
+	return value[index];
 };
 
-void Node::createExtension(string attributeReference){
+void Node::createExtension(int valueReference, bool classifier){
 	Node* extension;
-	extension = new Node(attributeReference);
-	attributes.push_back(extension);
+	extension = new Node(valueReference, classifier);
+	value.push_back(extension);
+};
+
+bool Node::isClass(){
+	return classifier;
 };

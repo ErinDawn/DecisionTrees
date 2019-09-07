@@ -10,15 +10,18 @@ using namespace std;
 //Make entropy a member? Or keep separate? If data changes, entropy changes... but so does member count etc.
 class Node{
 private:
-	string name;
-	vector<Node *> attributes;	//a list of node pointers, accessed according to attribute
+	int feature;
+	bool classifier;	//if classifier is true, resulting class node
+	vector<Node *> value;	//a list of node pointers, accessed according to attribute
 
 
 public:
 	Node();
-	Node(string name);
+	Node(int feature, bool classifier);
 	Node* goToNode(int index);	//go to the node pointer at index
-	void createExtension(string attributeReference);	//can use just an int to refer
+	void createExtension(int valueReference, bool classifier);	//can use just an int to refer
+	bool isClass();
+
 };
 
 #endif //DATACLASS_H
