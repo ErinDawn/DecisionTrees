@@ -6,7 +6,6 @@
 #include <iostream>
 #include <cmath>
 #include <string>
-#include <array>
 #include "helperFunctions.h"
 
 using namespace std;
@@ -37,27 +36,38 @@ int countColumns(string line, string delim){
 float pi(float sampleWithOption, float sampleSize){
     float  result = sampleWithOption / sampleSize;
     return result;
-};
+}
 
 float calcEntropy(float pi){
     return -(pi * log2(pi));
-};
+}
 
 float calcEntropy(float pi1, float pi2){    //Can take an array of pi, use a for loop to entropy and add
    return calcEntropy(pi1) + calcEntropy(pi2);
-};
+}
 
 float attributeEntropy(int pos, int neg, int sampleSize){
+    if (pos == 0 || neg == 0){ return 0;}   //if no positive class feature this attribute, return zero
     int subSample = pos + neg;
     float piPos, piNeg;
     piPos = pi(pos, subSample);
+    cout << "pi of pos " << pos << " and subSample " << subSample << " results in: " << piPos << endl;
     piNeg = pi(neg, subSample);
+    cout << "pi of neg " << neg << " and subSample " << subSample << " results in: " << piNeg << endl;
     float temp = calcEntropy(piPos, piNeg);
+    cout << "calculated entropy = " << temp << endl;
     float result = temp * (pi(subSample, sampleSize));
+    cout << "calculated by the final fraction of : " << subSample << " / " << sampleSize << endl;
+    cout << "Result = " << result << endl;
     return result; 
-};
+}
 
-float infoGain(float setEntropy, float entropy1, float entropy2){
-    float gain = setEntropy - entropy1 - entropy2;
+// float calcInfoGain(float setEntropy, float entropy1, float entropy2){
+//     float gain = (setEntropy - entropy1 - entropy2);
+//     return gain;
+// }
+
+float calcInfoGain(float setEntropy, float entropy1, float entropy2, float entropy3, float entropy4, float entropy5){
+    float gain = (setEntropy - entropy1 - entropy2 - entropy3 - entropy4 - entropy5);
     return gain;
-};
+}

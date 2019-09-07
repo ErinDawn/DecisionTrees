@@ -11,13 +11,14 @@ using namespace std;
 class Node{
 private:
 	string name;
-	Node* nextA;
-	Node* nextB
+	vector<Node *> attributes;	//a list of node pointers, accessed according to attribute
+
 
 public:
-	Mode();
-	Node* goToNextNode(string result);
-
+	Node();
+	Node(string name);
+	Node* goToNode(int index);	//go to the node pointer at index
+	void createExtension(string attributeReference);	//can use just an int to refer
 };
 
 #endif //DATACLASS_H

@@ -6,15 +6,16 @@
 using namespace std;
 
 
-Node( ){};
+Node::Node(string name){
+	name = name;
+};
 
-Node* Node::goToNextNode(string result){
-	switch (result) {
-		case "tall":	//code to be executed if 'result' = 'tall'
-			return nextA;
-		case "short":	//code to be executed if result = 'short'
-			return nextB;
-		default:		//if no valid result - return null
-			return nullptr;
-	}
-}
+Node* Node::goToNode(int index){
+	return attributes[index];
+};
+
+void Node::createExtension(string attributeReference){
+	Node* extension;
+	extension = new Node(attributeReference);
+	attributes.push_back(extension);
+};
