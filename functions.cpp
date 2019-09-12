@@ -27,6 +27,7 @@ int countColumns(string line, string delim){
         features++;
     }
     trim(line);
+    
     cout << line << endl << endl;
 
     return features;

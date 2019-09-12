@@ -24,4 +24,17 @@ public:
 
 };
 
+
+
+struct DataStruct{
+	int n_features;
+	int n_samples;
+	vector<int> v;
+	vector<vector<int> >sampleF;
+	vector<int> sampleC;
+};
+
+
+
+
 #endif //DATACLASS_H

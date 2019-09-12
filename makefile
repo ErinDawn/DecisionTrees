@@ -1,8 +1,11 @@
-main.exe	: main.o dataClasses.o functions.o helperFunctions.o
-	g++ -O2 -std=c++11 -o main.exe main.o dataClasses.o functions.o helperFunctions.o -l gdi32 -static-libgcc -static-libstdc++
+main.exe	: main.o buildTree.o dataClasses.o functions.o helperFunctions.o
+	g++ -O2 -std=c++11 -o main.exe main.o buildTree.o dataClasses.o functions.o helperFunctions.o -l gdi32 -static-libgcc -static-libstdc++
 			
-main.o	: main.cpp dataClasses.h functions.h helperFunctions.h
+main.o	: main.cpp buildTree.h dataClasses.h functions.h helperFunctions.h
 	g++ -O2 -std=c++11 -c -Wno-write-strings main.cpp
+
+buildTree.o	: buildTree.cpp dataClasses.h functions.h helperFunctions.h
+	g++ -O2 -std=c++11 -c -Wno-write-strings buildTree.cpp
 
 dataClasses.o	: dataClasses.cpp dataClasses.h functions.h helperFunctions.h
 	g++ -O2 -std=c++11 -c -Wno-write-strings dataClasses.cpp functions.o helperFunctions.o
