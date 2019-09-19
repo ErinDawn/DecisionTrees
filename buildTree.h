@@ -15,7 +15,7 @@ using namespace std;
 #define BUILDTREE_H
 
 
-void buildTree(DataStruct inData);
+Node buildTree(DataStruct inData);
 
 DataStruct openFromFile(string fileName, int n_features, int n_samples);
 
