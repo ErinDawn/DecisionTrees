@@ -25,7 +25,6 @@ struct DataStruct{
 			}
 			cout << " and class: " << sampleC[i] << endl;
 		}
-		
 	}
 	bool alreadyExpanded(int feat){
 		bool result;
@@ -35,7 +34,6 @@ struct DataStruct{
 };
 
 
-//Make entropy a member? Or keep separate? If data changes, entropy changes... but so does member count etc.
 class Node{
 private:
 	int feature;
@@ -44,22 +42,13 @@ private:
 public:
 	Node();
 	Node(int value, bool isClass);
-	Node* goToNode(int index);	//go to the node pointer at index
 	bool isClass();
 	void setFeature(int feat);
 	int getFeature();
 	void setClassifier(bool classifier);
 	bool getClassifier();
-	vector<Node *> nextPtr;	//a list of node pointers, accessed according to attribute
-	Node* getNextNode(int next);
+	vector<Node *> ptrList;	//a list of node pointers, accessed according to attribute
 	void testNode();
 };
-
-
-
-
-
-
-
 
 #endif //DATACLASS_H

@@ -11,8 +11,6 @@
 using namespace std;
 
 
-//Will my data have headers? If so, process may change slightly, current data samples indicate no
-//Alternately, can I have these entered by the user?
 int countColumns(string line, string delim){
     int length = line.length();
     int features = 0;
@@ -27,9 +25,7 @@ int countColumns(string line, string delim){
         features++;
     }
     trim(line);
-    
     cout << line << endl << endl;
-
     return features;
 
 }

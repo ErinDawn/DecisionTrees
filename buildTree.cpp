@@ -18,8 +18,9 @@ using namespace std;
 NOTE****** The following assumptions have been made:
 	* the number of features and number of samples are being supplied
 	* the samples incl. features and classes are in int format
+    * there are a maximum of 5 different values for each feature
 */
-Node buildTree(DataStruct inData){
+void buildTree(Node*& root, DataStruct inData){
 	////////////////////////////////////////////////////////////////////////////////////////////////
     int n_features = inData.n_features;
 	int n_samples = inData.n_samples;
@@ -28,13 +29,12 @@ Node buildTree(DataStruct inData){
 	//calc the entropy of set.
     int positiveCount = 0;
     int negativeCount = 0;
-    //int subSet = n_samples;
     int temp;
     int featureCount[n_features][5];
     int featurePosCount[n_features][5];
     float featureEntropy[n_features][5];
 
-    //set all counts to zero to begin
+    //set all counts to zero
     for (int i = 0; i < n_features; i++){
         for (int j = 0; j < 5; j++){
             featureCount[i][j] = 0;
@@ -55,29 +55,38 @@ Node buildTree(DataStruct inData){
         }
     }
     if (positiveCount == n_samples){
-        //cout << "pos count == n_samples ->" << positiveCount << " = " << n_samples << endl;
         // Return a leaf node with + label
-        Node leaf(1, "yes");
-        return leaf;
+        //cout << "return pos class" << endl;
+        Node* leaf;
+        leaf = new Node(1, true);
+        root = leaf;
+        return;
     }
     if (negativeCount == n_samples){
-        //cout << "neg count == n_samples ->" << negativeCount << " = " << n_samples << endl;
-        //cout << "positiveCount = " << positiveCount << " and n_samples = " << n_samples << endl;
         //Return a leaf node with - label
-        Node leaf(0, "yes"); 
-        return leaf;
+        //cout << "return neg class" << endl;
+        Node* leaf;
+        leaf = new Node(0, true);
+        root = leaf;
+        return;
     }
     if (inData.remaining_features == 0){
-        cout << "No features remain" << endl;
+        //cout << "No features remain" << endl;
         //Return a single node with the label = most common value for this branch
         if (positiveCount >= negativeCount){
             //return a leaf with + label
-            Node leaf(1, "yes");
-            return leaf;
+            //cout << "return pos class" << endl;
+            Node* leaf;
+            leaf = new Node(1, true);
+            root = leaf;
+            return;
         } else {
             //return a leaf with - label
-            Node leaf(0, "yes");
-            return leaf;
+            //cout << "return neg class" << endl;
+            Node* leaf;
+            leaf = new Node(0, true);
+            root = leaf;
+            return;
         }
     }
     ////////////////////////////////////////////////////////////////////////////
@@ -183,13 +192,15 @@ Node buildTree(DataStruct inData){
         cout << "Location: highest gain = 0" << endl;
         cout << "Returning root..." << endl;
          if (positiveCount > negativeCount){
-            //return a leaf with + label
-            Node leaf(1, "yes");
-            return leaf;
+            Node* leaf;
+            leaf = new Node(1, true);
+            root = leaf;
+            return;
         } else {
-            //return a leaf with - label
-            Node leaf(0, "yes");
-            return leaf;
+            Node* leaf;
+            leaf = new Node(0, true);
+            root = leaf;
+            return;
         }
     }
         
@@ -198,12 +209,9 @@ Node buildTree(DataStruct inData){
     //create a node for each feature value
     //add all items with that value to the nodes feature and class arrays
 
-    Node root(highestGainIndex, "no");
-    int test2 = root.getFeature();
-    cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-    cout << "root feature = " << highestGainIndex << endl;
-    cout << "Root actual value" << test2 << endl;
-    cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+    Node* leaf;
+    leaf = new Node(highestGainIndex, false);
+    root = leaf;
     DataStruct subList;
     subList.n_features = n_features;
 
@@ -226,17 +234,15 @@ Node buildTree(DataStruct inData){
     		}
             //DEBUGGING ****print the matrix for this batch of feature values
    			subList.printMatrix();
-   			cout << "*********************************" << endl << endl;
     	}
         subList.expandedList.push_back(highestGainIndex);
         subList.remaining_features = inData.remaining_features-1;
-        Node temp = buildTree(subList);
-        root.nextPtr[j] = &temp;
+        Node* leaf;
+        buildTree(leaf, subList);
+        root->ptrList[j] = leaf;
     }
-    int test3 = root.getFeature();
-    cout << "root feature = " << test3 << endl;
-    return root;
 };
+
 
 
 
