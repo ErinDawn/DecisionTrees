@@ -146,7 +146,7 @@ void buildTree(Node*& root, DataStruct inData){
     int featureNegCount;
     for (int i = 0; i < n_features; i++){
         for (int j = 0; j < 5; j++){
-            if (featureCount[i][j] <1) {break;}  // if (featureCount[i][j] == -1) {break;}  //why was this neg 0??
+            if (featureCount[i][j] <1) {break;} 
             featureNegCount = featureCount[i][j] - featurePosCount[i][j];
             featureEntropy[i][j] = attributeEntropy(featurePosCount[i][j], featureNegCount, n_samples);
         }
@@ -234,12 +234,16 @@ void buildTree(Node*& root, DataStruct inData){
     		}
             //DEBUGGING ****print the matrix for this batch of feature values
    			subList.printMatrix();
-    	}
-        subList.expandedList.push_back(highestGainIndex);
-        subList.remaining_features = inData.remaining_features-1;
-        Node* leaf;
-        buildTree(leaf, subList);
-        root->ptrList[j] = leaf;
+            subList.expandedList.push_back(highestGainIndex);
+            subList.remaining_features = inData.remaining_features-1;
+            Node* leaf;
+            buildTree(leaf, subList);
+            root->ptrList[j] = leaf;
+    	} else {
+            root->ptrList[j] = nullptr;
+        }
+        
+        
     }
 };
 
@@ -289,3 +293,5 @@ DataStruct openFromFile(string fileName, int n_features, int n_samples){
     return inData;
 
 };
+
+

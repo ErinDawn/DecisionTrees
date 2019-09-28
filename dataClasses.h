@@ -51,4 +51,48 @@ public:
 	void testNode();
 };
 
+struct ReferenceTable{
+	vector<string> strings;
+	vector<vector<string> >verboseList;
+	int n_features;
+	int n_classes;
+	int n_samples;
+	vector<string> classList;
+	vector<string> featureNames;
+	int isFeatureOption(string checkString, int index){
+		int length = verboseList[index].size();
+		for (int i = 0; i < length; i++){
+			if (checkString == verboseList[index][i]){
+				return i;
+			}
+		}
+		return -999;
+	}
+	int isClass(string checkString, int index){
+		int length = classList.size();
+		for (int i = 0; i < length; i++){
+			if (checkString == classList[i]){
+				return i;
+			}
+		}
+		return -999;
+	}
+	void printTable(){
+		cout << "****PRINTING REFERENCE TABLE****" << endl;
+		for (int i = 0; i < n_features; i++){
+			int length = verboseList[i].size();
+			for (int j = 0; j < length; j++){
+				cout << "Item[" << i << "][" << j << "] = " << verboseList[i][j] << endl;
+			}
+		}
+		int length = classList.size();
+		cout << "With classes: ";
+		for (int i = 0; i < length; i++){
+			cout << classList[i] << " ";
+		}
+		cout << "****END REF TABLE****" <<endl;
+		
+	}
+};
+
 #endif //DATACLASS_H
