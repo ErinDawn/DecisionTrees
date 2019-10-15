@@ -4,6 +4,8 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
+#include <vector>
+#include <tuple>
 #include "dataClasses.h"
 #include "helperFunctions.h"
 #include "functions.h"
@@ -17,8 +19,11 @@ using namespace std;
 
 void buildTree(Node*& root, DataStruct inData);
 
-DataStruct openFromFile(string fileName, int n_features, int n_samples);
+DataStruct openFromFile(string fileName, int n_features, int n_samples, int n_classes);
 
+int runTree(vector<int> singleItem, Node* tree, ReferenceTable table);
+
+void printTree(Node* tree, string branch, ReferenceTable table);
 
 
 #endif //BUILDTREE_H

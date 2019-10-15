@@ -6,6 +6,8 @@
 #include <iostream>
 #include <cmath>
 #include <string>
+#include <cstring>
+#include <array>
 #include "helperFunctions.h"
 
 using namespace std;
@@ -30,6 +32,19 @@ int countColumns(string line, string delim){
 
 }
 
+// float roundFloat(float var) 
+// {
+//     var = (var*100);
+//     cout << "Var * 100 = " << var << endl;
+//     int temp = var;
+//     cout << "Temp = var which = " << temp << endl;
+//     var = temp * 1.0;
+//     cout << "Var = temp, as a float again " << var << endl;
+//     var = var / 100;
+//     cout << "Var = var divided by 100, as a float again " << var << endl;
+//     return var; 
+// }
+
 float pi(float sampleWithOption, float sampleSize){
     float  result = sampleWithOption / sampleSize;
     return result;
@@ -49,10 +64,25 @@ float attributeEntropy(int pos, int neg, int sampleSize){
     float piPos, piNeg;
     piPos = pi(pos, subSample);
     piNeg = pi(neg, subSample);
-    float temp = calcEntropy(piPos, piNeg);
+    float temp = calcEntropy(piPos) + calcEntropy(piNeg);
     float result = temp * (pi(subSample, sampleSize));
-    return result; 
+    return result;
 }
+
+ // float altSetEntropy(int* posCounts, int subSample, int sampleSize){
+    // if (pos == 0){ return 0;}   //if no positive class feature this attribute, return zero
+    // //int subSample = pos + neg;
+    // int neg = subSample - pos;
+    // float piPos, piNeg;
+    // piPos = pi(pos, subSample);
+    // piNeg = pi(neg, subSample);
+    // float temp = calcEntropy(piPos);
+    // // float result = temp * (pi(subSample, sampleSize));  //extract this out to where function is called
+    // //return result; ; 
+    // return temp;
+ // }
+
+
 
 float calcInfoGain(float setEntropy, float entropy1, float entropy2, float entropy3, float entropy4, float entropy5){
     float gain = (setEntropy - entropy1 - entropy2 - entropy3 - entropy4 - entropy5);
