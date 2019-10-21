@@ -53,13 +53,14 @@ printTree(rootNode, "", newTable);
 //Use tree to classify a new data item
 //i.e. an expected 0 value
 cout << "creating test vector" << endl;
-vector<int> dataItem(2, 0);
-int temp1, temp2;
+vector<int> dataItem(3, 1);
+int temp1, temp2, temp3;
 
-cout << "Test vector set to 0, 0" << endl;
+cout << "Test vector set to 1, 1, 1" << endl;
 temp1 = dataItem[0];
 temp2 = dataItem[1];
-cout << temp1 << ", " << temp2 << endl;
+temp3 = dataItem[2];
+cout << temp1 << ", " << temp2 << ", " << temp3 << endl;
 cout << "Expected class = 0 - Not professional" << endl;
 
 int finalClass;
@@ -71,12 +72,14 @@ cout << endl << "************************************************" << endl;
 
 
 //i.e. an expected 1 value
-cout << "Test vector set to 1, 1" << endl;
+cout << "Test vector set to 1, 0, 0" << endl;
 dataItem[0] = 1;
-dataItem[1] = 1;
+dataItem[1] = 0;
+dataItem[2] = 0;
 
 temp1 = dataItem[0];
 temp2 = dataItem[1];
+temp2 = dataItem[2];
 cout << temp1 << ", " << temp2 << endl;
 cout << "Expected class = 1 - Professional" << endl;
 

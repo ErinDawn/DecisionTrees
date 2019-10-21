@@ -106,25 +106,16 @@ ReferenceTable translator(){
             table.rangeItem.clear();
             int buK = 0;
 
-            while(true){
-                if (j == 0.0){
-                   // tempMin = minVal+result;
-                    //tempMax = minVal+result;    //set value for minimum bucket
-                    tempMax = roundAlt(tempMax);    //rounded
-                    rangeAsString = "< " + to_string(tempMax);
-                    table.rangeItem.push_back(tempMax);;
-                    buckets--;
-                }
-                if (buckets == 1){  //last bucket - return >maxVal
-                    rangeAsString = "> " + to_string(tempMax);  //range = anything above
-                    table.rangeItem.push_back(tempMax);
-                    buckets--;
-                    buK = table.rangeItem.size();
-                    cout << "Total of " << buK << " items added to vector." << endl;
-                    break;
-                }
+            for (int k = 0; k < buckets; k++){
+                //first bucket = minval + result
+                tempMax = roundAlt(tempMax);    //rounded
+                //push value to vector
+                rangeAsString = "< " + to_string(tempMax);
+                table.rangeItem.push_back(tempMax);;
+                //increment tempMax;
+                tempMax = tempMax + result;
+
             }
-            
 
             //for each of these - create a new entry into
             table.strings.push_back("RANGE");
@@ -231,7 +222,7 @@ void translate(ReferenceTable table, string fileName){
                 token = inString.substr(0, pos);
                 trim(token); // token is a float value
 
-                cout << "Checking range bucket for feature " << count << endl;
+                                    //cout << "Checking range bucket for feature " << count << endl;
                 //find what index this corresponds to in table[count]
                 optionIndex = table.isRangeOption(count, token);
                 //write the index to file

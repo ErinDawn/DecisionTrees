@@ -35,7 +35,7 @@ void buildTree(Node*& root, DataStruct inData){
     int n_classes = inData.n_classes;
     int index = 0;
 
-//calc the entropy of set.
+    //calc the entropy of set.
     int positiveCount = 0;
     int negativeCount = 0;
     int temp;
@@ -309,7 +309,6 @@ DataStruct openFromFile(string fileName, int n_features, int n_samples, int n_cl
     cout << endl << endl;
     inData.printMatrix();
     return inData;
-
 };
 
 
@@ -327,14 +326,13 @@ int runTree(vector<int> singleItem, Node* tree, ReferenceTable table){
     }
     if (isClass){
         //if node is a class, return the class
-        cout << "Class found, returning "<< feature << endl;
-        cout << "Class found, returning "<< table.classList[feature] << " " << feature << endl;
+        cout << "Class found, returning "<< table.classList[feature] << " with reference " << feature << endl;
         return feature;
     } else {
-        cout << "Assessing feature: " << feature;
-        cout << " " << table.featureNames[feature] << " " << endl;
-        //if the node isn't a class, and isn't null, assess the feature.
+        //if the node isn't a class, and isn't null, expand feature node.
+        cout << "Assessing feature: " << feature << " - " << table.featureNames[feature] << endl;
         current = current->ptrList[nextIndex];
+        cout << table.featureNames[feature] << " has value " << nextIndex << endl;
         cout << "calling runTree on next pointer" << endl;
         result = runTree(singleItem, current, table);
         return result;
