@@ -13,165 +13,169 @@
 
 using namespace std;
 
-float roundFloat(float var) 
-{
-    var = (var*100);
-    int temp = var;
-    var = temp * 1.0;
-    var = var / 100;
-    return var; 
-}
-
-
 /*
 NOTE****** The following assumptions have been made:
-	* the number of features and number of samples are being supplied
-	* the samples incl. features and classes are in int format
+    * the number of features and number of samples are being supplied
+    * the samples incl. features and classes are in int format
     * there are a maximum of 5 different values for each feature
 */
 void buildTree(Node*& root, DataStruct inData){
+    cout << "Build tree entered..." << endl;
     int n_features = inData.n_features;
-	int n_samples = inData.n_samples;
+    int n_samples = inData.n_samples;
     int n_classes = inData.n_classes;
     int index = 0;
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //////////////////DEBUGGING////////////////////////////////////////////////////////////
+    cout << "inData counts: " << endl <<
+        "Class count = " << n_classes << endl <<
+        "Feature count = " << n_features << endl <<
+        "Samples considered = " << n_samples << endl;
+        cout << "Features already considered are: ";
+        int thisLength = inData.expandedList.size();
+        for (int i = 0; i < thisLength; i++){
+            cout << i << " ";
+        }
+        if (thisLength == 0) {
+            cout << "NONE CONSIDERED" << endl;
+        }
+        cout << endl;
+        ///////////////////////////////////////////////////////////////////////////////////////
+        //////////////////END     DEBUGGING////////////////////////////////////////////////////
 
-    //calc the entropy of set.
-    int positiveCount = 0;
-    int negativeCount = 0;
-    int temp;
-    int featureCount[n_features][5];
-    int featurePosCount[n_features][5];
-    float featureEntropy[n_features][5];
+
+    int classCounts[n_classes];     //the number of samples of each class
+    int featureCount[n_features][5];    //i.e number of samples with 'short'
+    int featureClassCount[n_features][n_classes];//i.e. number of 'short' samples with class X
+    int featureClassCount2[n_features][5][n_classes];
+    float featureEntropy[n_features][5];    //the entropy of each attribute i.e. height
 
     //set all counts to zero
     for (int i = 0; i < n_features; i++){
         for (int j = 0; j < 5; j++){
-            featureCount[i][j] = 0;
-            featurePosCount[i][j] = 0;
+            featureCount[i][j] = 0; 
+            featureClassCount[i][j] = 0;    
+            featureEntropy[i][j] = 0.0;
+            for (int k = 0; k < n_classes; k++){
+                featureClassCount2[i][j][k] = 0;        ////************************
+            }
+        }
+    }
+    for (int i = 0; i < n_classes; i++){
+        classCounts[i] = 0;
+    }
+
+    //calculate the class counts for the set
+    for (int i = 0; i < n_samples; i++){    //iterate through dataset, count no. of samples of each class
+        int temp = inData.sampleC[i];
+        for (int j = 0; j < n_classes; j++){
+            if (temp == j){
+                classCounts[j]++;
+            }
         }
     }
 
-    //Calculate the positive and negative members of the set
-    for (int i = 0; i < n_samples; i++){
-        temp = inData.sampleC[i];
-        switch(temp){
-            case 1:
-                positiveCount++;
-                break;
-            case 0:
-                negativeCount++;
-                break;
+    //////////////////////////////////////////////DEBUGGING*********************************
+    for (int j = 0; j < n_classes; j++){
+        cout << "Class index " << j << " has " << classCounts[j] << " members" << endl;
+    }
+    //////////////////////////////////////////////DEBUGGING*********************************
+
+    //Possibility 1 - all samples are of the same class
+    for (int i = 0; i < n_classes; i++){    //If all samples are of a particular class, return that class
+        if (classCounts[i] == n_samples){
+            Node* leaf;
+            leaf = new Node(i, true);
+            root = leaf;
+            cout << "Created leaf with class value " << i << endl;
+            return;
         }
     }
-    //if all items are of one particular class
-    //return a class node of that value
-    if (positiveCount == n_samples){
-        // Return a leaf node with + label
-        cout << "return pos class" << endl;
-        Node* leaf;
-        leaf = new Node(1, true);
-        root = leaf;
-        return;
-    }
-    if (negativeCount == n_samples){
-        //Return a leaf node with - label
-        cout << "return neg class" << endl;
-        Node* leaf;
-        leaf = new Node(0, true);
-        root = leaf;
-        return;
-    }
-    //if all features have been assessed
-    //Return a class node with most common value
-    if (inData.remaining_features == 0){
+
+    //Possibility 2 - no features remain to be assessed
+    if (inData.remaining_features == 0){    //If no features remain to be assessed
         cout << "No features remain" << endl;
-        if (positiveCount >= negativeCount){
-            //return a leaf with + label
-            cout << "return pos class" << endl;
-            Node* leaf;
-            leaf = new Node(1, true);
-            root = leaf;
-            return;
-        } else {
-            //return a leaf with - label
-            cout << "return neg class" << endl;
-            Node* leaf;
-            leaf = new Node(0, true);
-            root = leaf;
-            return;
+        //Return a single node with the most common class for this branch
+        int maxCount = 0;
+        index = 0;
+        for (int i = 0; i < n_classes; i++){
+            if (classCounts[i] > maxCount){
+                index = i;
+                maxCount = classCounts[i];
+            }
         }
+        Node* leaf;
+        leaf = new Node(index, true);
+        root = leaf;
+        return;
     }
-    ////////////////////////////////////////////////////////////////////////////
-    ///////Else, calculate the node with the highest info gain//////////////////
-    ////////////create a subNode for each value of that feature/////////////////
+
+    //Else, calculate the node with the highest info gain
+    //create a subNode for each value of that feature
     cout << "*********************************************************" << endl;
 
-
-    //Calculate the number of values for each feature.
-    for (int i = 0; i < n_samples; i++){
-        for (int j = 0; j < n_features; j++){
-            if (!inData.alreadyExpanded(j)){ //if feature at index j has not yet been expanded
-
-                //use temp to get value at inData.sampleF[sampleNumber][featureNumber]
-                temp = inData.sampleF[i][j]; 
-                switch (temp){  //add one to the applicable feature value
-                    case 0:
-                        featureCount[j][0]++;
-                        //if corresponding class is positive, add on to the featurePosCount
-                        if (inData.sampleC[i] == 1){
-                            featurePosCount[j][0]++;
-                        }
-                        break;
-                    case 1:
-                        featureCount[j][1]++;
-                        if (inData.sampleC[i] == 1){
-                            featurePosCount[j][1]++;
-                        }
-                        break;
-                    case 2:
-                        featureCount[j][2]++;
-                        if (inData.sampleC[i] == 1){
-                            featurePosCount[j][2]++;
-                        }
-                        break;
-                    case 3:
-                        featureCount[j][3]++;
-                        if (inData.sampleC[i] == 1){
-                            featurePosCount[j][3]++;
-                        }
-                        break;
-                    case 4:
-                        featureCount[j][4]++;
-                        if (inData.sampleC[i] == 1){
-                            featurePosCount[j][4]++;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            } 
-            
+    for (int i = 0; i< n_samples; i++){  //look at each sample
+        for (int j = 0; j < n_features; j++){   //for every feature, get the attribute
+            if (!inData.alreadyExpanded(j)){
+                int attr = inData.sampleF[i][j];    //sample i and feature j has value attr
+                int classWithA = inData.sampleC[i]; //sample i has class classWithA
+                featureClassCount2[j][attr][classWithA]++;
+                featureCount[j][attr]++;    //for feature j with attribute attr, add 1 to count
+            }
         }
     }
 
+    int posCount, subSampleSize;
+    int attributeCount = 0;
+    int classCountWAttribute = 0;
+    float tempResult;
+    float piResult = 0.0, entropyResult =0.0, entropySum = 0.0;
     //calc the entropy for each feature value with a count
-    int featureNegCount;
-    for (int i = 0; i < n_features; i++){
-        for (int j = 0; j < 5; j++){
-            if (featureCount[i][j] <1) {break;} 
-            featureNegCount = featureCount[i][j] - featurePosCount[i][j];
-            featureEntropy[i][j] = attributeEntropy(featurePosCount[i][j], featureNegCount, n_samples);
-            featureEntropy[i][j] = roundFloat(featureEntropy[i][j]);
+    for (int i = 0; i< n_features; i++){    //for each feature
+        for (int j = 0; j < 5; j++){    //for each attribute
+            if (featureCount[i][j] <1) {
+                //cout << "No samples with attribute " << j << endl;
+                featureEntropy[i][j] = 0.0;
+                entropySum = 0.0;
+                break;
+            }
+
+            attributeCount = featureCount[i][j];    //number of samples with this attribute.
+            //for each class - get the total number of counts with this attribute
+            for (int k = 0; k < n_classes; k++){
+                posCount = featureClassCount2[i][j][k]; //number of samples which are this class
+                if (posCount == 0){
+                    entropyResult = 0;
+                } else {
+                    piResult = pi(posCount, attributeCount);
+                    entropyResult = calcEntropy(piResult);
+                }
+                cout << "Feature " << i << " with attribute " << j << " matching class " << k << " = " << posCount << endl;
+                entropySum = entropySum + entropyResult;
+
+            }
+            //once entropy for each class is done - we have entropy for that ATTRIBUTE
+            cout << "Attribute entropy = " << entropySum << endl;
+            entropySum = entropySum * (pi(attributeCount, n_samples));
+            cout << "Entropy * pi(attributeCount, sampleCount) = " << entropySum << endl;
+            featureEntropy[i][j] = entropySum;
+            entropySum = 0.0;
         }
     }
-    cout << "*************************************************" << endl;
-    
-    //calculate the entropy for the entire set
-    float positiveE = pi(positiveCount, n_samples);
-    float negativeE = pi(negativeCount, n_samples);
-    float setEntropy = calcEntropy(positiveE, negativeE);
-    setEntropy = roundFloat(setEntropy);
-    cout << "Entropy of set is " << setEntropy << endl;
+
+    float setEntropy = 0.0;
+    float piTemp = 0.0;
+    for (int i = 0; i< n_classes; i++){
+        posCount = classCounts[i];
+        cout << "----------Class count at index " << i << " = " << posCount << endl;
+        piTemp = pi(posCount, n_samples);
+        //cout << "pi of index " << i << " = " << piTemp << endl;
+        piTemp = calcEntropy(piTemp);
+        //cout << "ent of piTemp " << piTemp << endl;
+        setEntropy = setEntropy + piTemp;
+        //cout << "intermediate setEntropy = " << setEntropy << endl;
+    }
+    cout << "Final entropy of set is " << setEntropy << endl;
 
     //Calculating information gain and selecting the highest gain from array of gains
     float gain[n_features];
@@ -181,23 +185,16 @@ void buildTree(Node*& root, DataStruct inData){
     for (int i = 0; i < n_features; i++){
         gain[i] = calcInfoGain(setEntropy, featureEntropy[i][0], featureEntropy[i][1],
                         featureEntropy[i][2], featureEntropy[i][3], featureEntropy[i][4]);
-        gain[i] = roundFloat(gain[i]);
         if (gain[i] > highestGain){
-            highestGain = gain[i];
-            highestGainIndex = i;
+            if (!inData.alreadyExpanded(i)) {//if attribute index has not already been evaluated
+                highestGain = gain[i];
+                highestGainIndex = i;
+            }
         }
     }
+
     //select largest info gain
     cout << "The highest gain is index " << highestGainIndex;
-    if (highestGainIndex == 0){
-        cout << " - height - ";
-    }
-    if (highestGainIndex == 1){
-        cout << " - dexterity - ";
-    }
-    if (highestGainIndex == 2){
-        cout << " - fitness - ";
-    }
     cout << " with a gain of: " << highestGain << endl;
     cout << "***************************************************" << endl;
 
@@ -206,23 +203,23 @@ void buildTree(Node*& root, DataStruct inData){
         //select the most common class from subSample
         cout << "Highest gain = " << highestGain << endl;
         cout << "Returning the most common class from subSample" << endl;
-
         cout << "Returning root..." << endl;
-         if (positiveCount >= negativeCount){
-            Node* leaf;
-            leaf = new Node(1, true);
-            root = leaf;
-            return;
-        } else {
-            Node* leaf;
-            leaf = new Node(0, true);
-            root = leaf;
-            return;
+        //Return a single node with the label = most common value for this branch
+        int maxCount = 0;
+        index = 0;
+        for (int i = 0; i < n_classes; i++){
+            if (classCounts[i] > maxCount){
+                index = i;
+                maxCount = classCounts[i];
+            }
         }
+        //return a leaf with the largest class count
+        Node* leaf;
+        leaf = new Node(index, true);
+        root = leaf;
+        return;
     }
-        
 
-    //************************************************************
     //create a node for each feature value
     //add all items with that value to the nodes feature and class arrays
     cout << "Creating a node for all feature values..." << endl;
@@ -231,15 +228,18 @@ void buildTree(Node*& root, DataStruct inData){
     root = leaf;
     DataStruct subList;
     subList.n_features = n_features;
+    subList.n_classes = n_classes;
 
     //For feature 'highestGainIndex'
     for (int j = 0; j < 5; j++){    //with values 1-5
-        cout << "Feature " << highestGainIndex << " with value " << j << ".....";
+        cout << "Feature " << highestGainIndex << " with value " << j << "....." << endl;
         subList.n_samples = featureCount[highestGainIndex][j];  //each subList will have a different number of samples
         //Create a sublist for each value of feature[highestGainIndex]
         subList.v.clear();
         subList.sampleF.clear();
         subList.sampleC.clear();
+        subList.expandedList.clear();
+        subList.expandedList = inData.expandedList;
 
         if(featureCount[highestGainIndex][j] > 0){  //if a featureCount[highestGainIndex][j] has any items
             for (int itemIndex = 0; itemIndex < n_samples; itemIndex++){  //iterate through all samples
@@ -251,6 +251,7 @@ void buildTree(Node*& root, DataStruct inData){
             }
             //DEBUGGING ****print the matrix for this batch of feature values
             subList.printMatrix();
+            cout << "Sublist matrix printed successfully" << endl;
             subList.expandedList.push_back(highestGainIndex);
             subList.remaining_features = inData.remaining_features-1;
             Node* leaf;
@@ -313,6 +314,7 @@ DataStruct openFromFile(string fileName, int n_features, int n_samples, int n_cl
 
 
 int runTree(vector<int> singleItem, Node* tree, ReferenceTable table){
+    cout << "runTree entered " << endl;
     Node* current;
     current = tree;
     bool isClass = current->getClassifier();

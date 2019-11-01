@@ -11,7 +11,7 @@
 
 using namespace std;
 
-float roundAlt(float var) 
+float roundFloat(float var) 
 {
     var = (var*100);
     int temp = var;
@@ -52,12 +52,12 @@ ReferenceTable translator(){
     cout << "*********************************************************" << endl;
     cout << "Next, consider the features in the order they will are listed in the data file." << endl;
     cout << "Note - all values are case sensitive." << endl;
-    cout << "*********************************************************" << endl << endl;
+    cout << "*********************************************************" << endl;
     
     for (int i = 0; i < n_features; i++){
         table.strings.clear();
         n_options = 0;
-        cout << "What is the name of data feature " << i << "?" << endl;
+        cout << endl << "What is the name of data feature " << i << "?" << endl;
         getline(cin, input);
         table.featureNames.push_back(input);
         //add 'input' to the vector featureName list
@@ -67,7 +67,7 @@ ReferenceTable translator(){
         if (input == "y"){
             table.numericalRange.push_back(true);;
             cout << endl << endl;
-            cout << "What is this features minimum value?";
+            cout << "What is this features minimum value?" << endl;;
             
             while(true){
                 getline(cin, input);
@@ -98,7 +98,7 @@ ReferenceTable translator(){
                 }
             }
             float result = (maxVal - minVal) / (buckets);
-            result = roundAlt(result);
+            result = roundFloat(result);
             float tempMin = 0.0;
             float tempMax = minVal + result;
             float j = 0.0;
@@ -108,7 +108,7 @@ ReferenceTable translator(){
 
             for (int k = 0; k < buckets; k++){
                 //first bucket = minval + result
-                tempMax = roundAlt(tempMax);    //rounded
+                tempMax = roundFloat(tempMax);    //rounded
                 //push value to vector
                 rangeAsString = "< " + to_string(tempMax);
                 table.rangeItem.push_back(tempMax);;
@@ -245,7 +245,6 @@ void translate(ReferenceTable table, string fileName){
         trim(inString); //last item in the string will be the class
         optionIndex = table.isClass(inString, featureNumber);
         out << optionIndex << endl;
-        // index++;
     }
     out.close();
 };

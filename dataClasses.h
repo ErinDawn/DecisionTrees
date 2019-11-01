@@ -31,7 +31,7 @@ struct DataStruct{
 	}
 	bool alreadyExpanded(int feat){
 		bool result;
-		result = find(v.begin(), v.end(), feat) != v.end();
+		result = find(expandedList.begin(), expandedList.end(), feat) != expandedList.end();
 		return result;
 	}
 };
