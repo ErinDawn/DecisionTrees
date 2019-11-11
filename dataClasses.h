@@ -101,10 +101,7 @@ struct ReferenceTable{
 		int length = rangeItem.size();
 		int lastI = length -1;
 		int buckets = rangeList[featureNumber].size();	/////////////////////////////////////////////////////
-							//cout << "There are " << buckets << " buckets for this vector." << endl;	///////////////////////////////
-							//cout << "Considering value " << value << endl;
 		for (int i = 0; i < length; i++){
-							//cout << "Looking in index " << i << endl;
 			checkMe = rangeList[featureNumber][i];
 							//cout << "Current range is < " << checkMe << endl;
 		//if it's less than current range return, otherwise, look at next i, which is bigger
@@ -115,8 +112,6 @@ struct ReferenceTable{
     			temp = range;
     			range = temp * 1.0;
     			range = range / 100;
-								//cout << "Belongs in range < " << range << endl;
-								//cout << "Bucket " << i << endl;
 				return i;
 			}
 			if (buckets == 1){
@@ -127,8 +122,6 @@ struct ReferenceTable{
     			temp = range;
     			range = temp * 1.0;
     			range = range / 100;
-								// cout << "Belongs in range > " << range << endl;
-								// cout << "Bucket " << i << endl;
 				return i;
 			}
 			if (i == lastI){	//if the last bucket, value must fall into this one
@@ -138,8 +131,6 @@ struct ReferenceTable{
     			temp = range;
     			range = temp * 1.0;
     			range = range / 100;
-								//cout << "Belongs in range > " << range << endl;
-								//cout << "Bucket " << i << endl;
 				return i;
 			}
 			buckets--;
@@ -180,7 +171,6 @@ struct ReferenceTable{
 				float min, max;
 				int inLength;
 				inLength = rangeList[rangeIndex].size();
-				cout << "Total number of buckets = " << inLength << endl;
 				for (int k = 0; k < inLength; k++){
 					max = rangeList[rangeIndex][k];
 					cout << "max = " << max << endl;
@@ -198,7 +188,7 @@ struct ReferenceTable{
 			}	
 		}
 		int length = classList.size();
-		cout << "With classes: ";
+		cout << "With classes:  ";
 		for (int i = 0; i < length; i++){
 			cout << classList[i] << " ";
 		}

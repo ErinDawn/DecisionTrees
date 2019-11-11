@@ -13,10 +13,9 @@ Node::Node(){
 	ptrList.resize(5, nullptr);
 };
 
-Node::Node(int value, bool isClass){	//if classifier is true, resulting class node
+Node::Node(int value, bool isClass){	//if classifier is true: is class node, if false: feature
 	feature = value;
 	classifier = isClass;
-	
 	ptrList.resize(5, nullptr);
 };
 
@@ -39,20 +38,4 @@ void Node::setClassifier(bool classifier){
 
 bool Node::getClassifier(){
 	return classifier;
-};
-
-
-void Node::testNode(){
-	cout << "-Node details-" << endl;
-	cout << "feature = " << feature << endl;
-	cout << "classifier = " << classifier << endl;
-	cout << "ptrList holds 5 pointers with the following values:" << endl;
-	for (int i = 0; i < 5; i++){
-		if (ptrList[i] == nullptr){
-			cout << "nullptr" << endl;
-		} else {
-			cout << "Value " << ptrList[i] << " referenced at " << i << endl;
-		}
-
-	}
 };

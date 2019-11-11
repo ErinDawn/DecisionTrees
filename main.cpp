@@ -14,20 +14,19 @@
 
 using namespace std;
 
-
-
 int main() {
 
-
 ReferenceTable newTable;
+string fileName;
+
+cout << "Please enter the file name of the data set:" << endl;
+getline(cin, fileName);
+
 newTable = translator();
-newTable.printTable();
 
-//translate(newTable, "example.txt");	//full string data
-// translate(newTable, "irisD.data");	//full string data
-translate(newTable, "iris.data");	//full string data
-cout << "translate file using table successful" << endl;
-
+//translate(newTable, "iris.data");	
+//translate(newTable, "example.txt");	//contrived example
+translate(newTable, fileName);
 
 DataStruct newData;
 int n_features = newTable.n_features;
@@ -37,64 +36,26 @@ int n_classes = newTable.n_classes;
 newData = openFromFile("newdata.txt", n_features, n_samples, n_classes);
 newData.expandedList.clear();
 newData.remaining_features = n_features;    //n_features will have to be added in
-cout << "************************************************" << endl;
 
-//pass inData into buildTree function
-cout << "Creating new node" << endl;
+cout << "************************************************" << endl;
 Node* rootNode;
 rootNode = new Node();
-cout << "building tree using new node" << endl;
+cout << "building tree..." << endl;
 buildTree(rootNode, newData);
-cout << "Tree built successfully" << endl;
 cout << "************************************************" << endl;
-
 Node* tree;
 tree = rootNode;
 cout << "Printing tree ..." << endl;
 printTree(rootNode, "", newTable);
 
-// //Use tree to classify a new data item
-// //i.e. an expected 0 value
-// cout << "creating test vector" << endl;
-// vector<int> dataItem(3, 1);
-// int temp1, temp2, temp3;
 
-// cout << "Test vector set to 1, 1, 1" << endl;
-// temp1 = dataItem[0];
-// temp2 = dataItem[1];
-// temp3 = dataItem[2];
-// cout << temp1 << ", " << temp2 << ", " << temp3 << endl;
-// cout << "Expected class = 0 - Not professional" << endl;
+cout << "************************************************" << endl;
+cout << "testing each sample against tree...." << endl;
+testTree(newData, newTable, rootNode);
 
-// int finalClass;
-// cout << "************************************************" << endl;
-// cout << "Running tree" << endl;\
-// finalClass = runTree(dataItem, tree, newTable);
-// cout  << "Class returned = " << finalClass << endl;
-// cout << endl << "************************************************" << endl;
-
-
-// //i.e. an expected 1 value
-// cout << "Test vector set to 1, 0, 0" << endl;
-// dataItem[0] = 1;
-// dataItem[1] = 0;
-// dataItem[2] = 0;
-
-// temp1 = dataItem[0];
-// temp2 = dataItem[1];
-// temp2 = dataItem[2];
-// cout << temp1 << ", " << temp2 << endl;
-// cout << "Expected class = 1 - Professional" << endl;
-
-// cout << "************************************************" << endl;
-// cout << "Running tree" << endl;
-// finalClass = runTree(dataItem, tree, newTable);
-// cout  << "Class returned = " << finalClass << endl;
-// cout << "************************************************" << endl;
-// cout << "************************************************" << endl;
-
-
-// printTree(tree, "", newTable);
+cout << "************************************************" << endl;
+cout << "Printing the reference table..." << endl;
+cout << "************************************************" << endl;
 newTable.printTable();
 
 

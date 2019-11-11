@@ -1,0 +1,118 @@
+Please enter the file name of the data set:
+Some information is required about the data set
+*************************************************
+How many features are considered by the dataset?
+*********************************************************
+Consider the features in the order they are listed in the data file.
+Note - all values are case sensitive.
+*********************************************************
+
+What is the name of data feature 0?
+
+
+Is this data feature a numerical range? Enter y or n
+**********
+
+
+How many feature values exist for this feature?
+**********
+
+
+What is feature value 0?
+**********
+
+
+What is feature value 1?
+
+What is the name of data feature 1?
+
+
+Is this data feature a numerical range? Enter y or n
+**********
+
+
+How many feature values exist for this feature?
+**********
+
+
+What is feature value 0?
+**********
+
+
+What is feature value 1?
+***************************************************
+
+
+How many classes does the dataset contain?
+**********
+
+
+What is class name 0?
+**********
+
+
+What is class name 1?
+*************************************************
+
+
+How many data samples are in the dataset?
+Translating file using table...
+
+
+Sample 0
+ with features: 0 0  and class: 0
+Sample 1
+ with features: 1 1  and class: 1
+Sample 2
+ with features: 0 1  and class: 1
+Sample 3
+ with features: 1 1  and class: 1
+Sample 4
+ with features: 0 0  and class: 1
+Sample 5
+ with features: 1 0  and class: 1
+Sample 6
+ with features: 0 1  and class: 1
+Sample 7
+ with features: 1 1  and class: 1
+Sample 8
+ with features: 1 0  and class: 0
+Sample 9
+ with features: 1 1  and class: 1
+************************************************
+building tree...
+Entropy of set is 0.721928
+Information gain for feature 0 = 0.00740331
+Information gain for feature 1 = 0.321928
+***************************************************
+The highest gain is index 1 with a gain of: 0.321928
+***************************************************
+Entropy of set is 1
+Information gain for feature 0 = 0
+Information gain for feature 1 = 1
+***************************************************
+The highest gain is index 0 with a gain of: 0
+***************************************************
+************************************************
+Printing tree ...
+ feature 1 - Dexterity 
+-------- option 0 returns class 0 - Yes
+-------- option 1 returns class 1 - No
+************************************************
+testing each sample against tree....
+Total successful classifications = 8
+Total failed classifications = 2
+************************************************
+Printing the reference table...
+************************************************
+
+***********PRINTING REFERENCE TABLE***********
+Feature 0 Height
+Item[0][0] = Tall
+Item[0][1] = Short
+Feature 1 Dexterity
+Item[1][0] = Good
+Item[1][1] = Bad
+With classes:  Yes No 
+**************END REF TABLE**************
+

@@ -1,0 +1,570 @@
+Please enter the file name of the data set:
+Some information is required about the data set
+*************************************************
+How many features are considered by the dataset?
+*********************************************************
+Consider the features in the order they are listed in the data file.
+Note - all values are case sensitive.
+*********************************************************
+
+What is the name of data feature 0?
+
+
+Is this data feature a numerical range? Enter y or n
+
+
+What is this feature's minimum value?
+
+
+What is this feature's maximum value?
+
+
+How many buckets should this feature be separated into?
+
+What is the name of data feature 1?
+
+
+Is this data feature a numerical range? Enter y or n
+
+
+What is this feature's minimum value?
+
+
+What is this feature's maximum value?
+
+
+How many buckets should this feature be separated into?
+
+What is the name of data feature 2?
+
+
+Is this data feature a numerical range? Enter y or n
+
+
+What is this feature's minimum value?
+
+
+What is this feature's maximum value?
+
+
+How many buckets should this feature be separated into?
+
+What is the name of data feature 3?
+
+
+Is this data feature a numerical range? Enter y or n
+
+
+What is this feature's minimum value?
+
+
+What is this feature's maximum value?
+
+
+How many buckets should this feature be separated into?
+***************************************************
+
+
+How many classes does the dataset contain?
+**********
+
+
+What is class name 0?
+**********
+
+
+What is class name 1?
+**********
+
+
+What is class name 2?
+*************************************************
+
+
+How many data samples are in the dataset?
+Translating file using table...
+
+
+Sample 0
+ with features: 1 3 0 0  and class: 0
+Sample 1
+ with features: 0 2 0 0  and class: 0
+Sample 2
+ with features: 0 2 0 0  and class: 0
+Sample 3
+ with features: 0 2 0 0  and class: 0
+Sample 4
+ with features: 0 3 0 0  and class: 0
+Sample 5
+ with features: 1 3 0 0  and class: 0
+Sample 6
+ with features: 0 2 0 0  and class: 0
+Sample 7
+ with features: 0 2 0 0  and class: 0
+Sample 8
+ with features: 0 1 0 0  and class: 0
+Sample 9
+ with features: 0 2 0 0  and class: 0
+Sample 10
+ with features: 1 3 0 0  and class: 0
+Sample 11
+ with features: 0 2 0 0  and class: 0
+Sample 12
+ with features: 0 2 0 0  and class: 0
+Sample 13
+ with features: 0 2 0 0  and class: 0
+Sample 14
+ with features: 2 4 0 0  and class: 0
+Sample 15
+ with features: 1 4 0 0  and class: 0
+Sample 16
+ with features: 1 3 0 0  and class: 0
+Sample 17
+ with features: 1 3 0 0  and class: 0
+Sample 18
+ with features: 1 3 0 0  and class: 0
+Sample 19
+ with features: 1 3 0 0  and class: 0
+Sample 20
+ with features: 1 2 0 0  and class: 0
+Sample 21
+ with features: 1 3 0 0  and class: 0
+Sample 22
+ with features: 0 3 0 0  and class: 0
+Sample 23
+ with features: 1 2 0 0  and class: 0
+Sample 24
+ with features: 0 2 0 0  and class: 0
+Sample 25
+ with features: 0 2 0 0  and class: 0
+Sample 26
+ with features: 0 2 0 0  and class: 0
+Sample 27
+ with features: 1 3 0 0  and class: 0
+Sample 28
+ with features: 1 2 0 0  and class: 0
+Sample 29
+ with features: 0 2 0 0  and class: 0
+Sample 30
+ with features: 0 2 0 0  and class: 0
+Sample 31
+ with features: 1 2 0 0  and class: 0
+Sample 32
+ with features: 1 4 0 0  and class: 0
+Sample 33
+ with features: 1 4 0 0  and class: 0
+Sample 34
+ with features: 0 2 0 0  and class: 0
+Sample 35
+ with features: 0 2 0 0  and class: 0
+Sample 36
+ with features: 1 3 0 0  and class: 0
+Sample 37
+ with features: 0 2 0 0  and class: 0
+Sample 38
+ with features: 0 2 0 0  and class: 0
+Sample 39
+ with features: 1 2 0 0  and class: 0
+Sample 40
+ with features: 0 3 0 0  and class: 0
+Sample 41
+ with features: 0 0 0 0  and class: 0
+Sample 42
+ with features: 0 2 0 0  and class: 0
+Sample 43
+ with features: 0 3 0 1  and class: 0
+Sample 44
+ with features: 1 3 0 0  and class: 0
+Sample 45
+ with features: 0 2 0 0  and class: 0
+Sample 46
+ with features: 1 3 0 0  and class: 0
+Sample 47
+ with features: 0 2 0 0  and class: 0
+Sample 48
+ with features: 1 3 0 0  and class: 0
+Sample 49
+ with features: 0 2 0 0  and class: 0
+Sample 50
+ with features: 3 2 3 2  and class: 1
+Sample 51
+ with features: 2 2 2 2  and class: 1
+Sample 52
+ with features: 3 2 3 2  and class: 1
+Sample 53
+ with features: 1 0 2 2  and class: 1
+Sample 54
+ with features: 3 1 3 2  and class: 1
+Sample 55
+ with features: 1 1 2 2  and class: 1
+Sample 56
+ with features: 2 2 3 3  and class: 1
+Sample 57
+ with features: 0 0 1 1  and class: 1
+Sample 58
+ with features: 3 1 3 2  and class: 1
+Sample 59
+ with features: 1 1 2 2  and class: 1
+Sample 60
+ with features: 0 0 2 1  and class: 1
+Sample 61
+ with features: 2 2 2 2  and class: 1
+Sample 62
+ with features: 2 0 2 1  and class: 1
+Sample 63
+ with features: 2 1 3 2  and class: 1
+Sample 64
+ with features: 1 1 2 2  and class: 1
+Sample 65
+ with features: 3 2 2 2  and class: 1
+Sample 66
+ with features: 1 2 2 2  and class: 1
+Sample 67
+ with features: 2 1 2 1  and class: 1
+Sample 68
+ with features: 2 0 2 2  and class: 1
+Sample 69
+ with features: 1 1 2 2  and class: 1
+Sample 70
+ with features: 2 2 3 3  and class: 1
+Sample 71
+ with features: 2 1 2 2  and class: 1
+Sample 72
+ with features: 2 1 3 2  and class: 1
+Sample 73
+ with features: 2 1 3 2  and class: 1
+Sample 74
+ with features: 2 1 2 2  and class: 1
+Sample 75
+ with features: 3 2 2 2  and class: 1
+Sample 76
+ with features: 3 1 3 2  and class: 1
+Sample 77
+ with features: 3 2 3 3  and class: 1
+Sample 78
+ with features: 2 1 2 2  and class: 1
+Sample 79
+ with features: 1 1 2 1  and class: 1
+Sample 80
+ with features: 1 0 2 2  and class: 1
+Sample 81
+ with features: 1 0 2 1  and class: 1
+Sample 82
+ with features: 2 1 2 2  and class: 1
+Sample 83
+ with features: 2 1 3 3  and class: 1
+Sample 84
+ with features: 1 2 2 2  and class: 1
+Sample 85
+ with features: 2 2 2 3  and class: 1
+Sample 86
+ with features: 3 2 3 2  and class: 1
+Sample 87
+ with features: 2 0 2 2  and class: 1
+Sample 88
+ with features: 1 2 2 2  and class: 1
+Sample 89
+ with features: 1 1 2 2  and class: 1
+Sample 90
+ with features: 1 1 2 2  and class: 1
+Sample 91
+ with features: 2 2 3 2  and class: 1
+Sample 92
+ with features: 2 1 2 2  and class: 1
+Sample 93
+ with features: 0 0 1 1  and class: 1
+Sample 94
+ with features: 1 1 2 2  and class: 1
+Sample 95
+ with features: 1 2 2 2  and class: 1
+Sample 96
+ with features: 1 1 2 2  and class: 1
+Sample 97
+ with features: 2 1 2 2  and class: 1
+Sample 98
+ with features: 1 1 1 2  and class: 1
+Sample 99
+ with features: 1 1 2 2  and class: 1
+Sample 100
+ with features: 2 2 4 4  and class: 2
+Sample 101
+ with features: 2 1 3 3  and class: 2
+Sample 102
+ with features: 3 2 4 4  and class: 2
+Sample 103
+ with features: 2 1 3 3  and class: 2
+Sample 104
+ with features: 3 2 4 4  and class: 2
+Sample 105
+ with features: 4 2 4 4  and class: 2
+Sample 106
+ with features: 0 1 2 3  and class: 2
+Sample 107
+ with features: 4 1 4 3  and class: 2
+Sample 108
+ with features: 3 1 4 3  and class: 2
+Sample 109
+ with features: 4 3 4 4  and class: 2
+Sample 110
+ with features: 3 2 3 3  and class: 2
+Sample 111
+ with features: 2 1 3 3  and class: 2
+Sample 112
+ with features: 3 2 3 4  and class: 2
+Sample 113
+ with features: 1 1 3 3  and class: 2
+Sample 114
+ with features: 2 1 3 4  and class: 2
+Sample 115
+ with features: 2 2 3 4  and class: 2
+Sample 116
+ with features: 3 2 3 3  and class: 2
+Sample 117
+ with features: 4 3 4 4  and class: 2
+Sample 118
+ with features: 4 1 4 4  and class: 2
+Sample 119
+ with features: 2 0 3 2  and class: 2
+Sample 120
+ with features: 3 2 3 4  and class: 2
+Sample 121
+ with features: 1 1 3 3  and class: 2
+Sample 122
+ with features: 4 1 4 3  and class: 2
+Sample 123
+ with features: 2 1 3 3  and class: 2
+Sample 124
+ with features: 3 2 3 4  and class: 2
+Sample 125
+ with features: 4 2 4 3  and class: 2
+Sample 126
+ with features: 2 1 3 3  and class: 2
+Sample 127
+ with features: 2 2 3 3  and class: 2
+Sample 128
+ with features: 2 1 3 4  and class: 2
+Sample 129
+ with features: 4 2 4 3  and class: 2
+Sample 130
+ with features: 4 1 4 3  and class: 2
+Sample 131
+ with features: 4 3 4 3  and class: 2
+Sample 132
+ with features: 2 1 3 4  and class: 2
+Sample 133
+ with features: 2 1 3 2  and class: 2
+Sample 134
+ with features: 2 1 3 2  and class: 2
+Sample 135
+ with features: 4 2 4 4  and class: 2
+Sample 136
+ with features: 2 2 3 4  and class: 2
+Sample 137
+ with features: 2 2 3 3  and class: 2
+Sample 138
+ with features: 2 2 3 3  and class: 2
+Sample 139
+ with features: 3 2 3 4  and class: 2
+Sample 140
+ with features: 3 2 3 4  and class: 2
+Sample 141
+ with features: 3 2 3 4  and class: 2
+Sample 142
+ with features: 2 1 3 3  and class: 2
+Sample 143
+ with features: 3 2 4 4  and class: 2
+Sample 144
+ with features: 3 2 3 4  and class: 2
+Sample 145
+ with features: 3 2 3 4  and class: 2
+Sample 146
+ with features: 2 1 3 3  and class: 2
+Sample 147
+ with features: 3 2 3 3  and class: 2
+Sample 148
+ with features: 2 2 3 4  and class: 2
+Sample 149
+ with features: 2 2 3 3  and class: 2
+************************************************
+building tree...
+Entropy of set is 1.58496
+Information gain for feature 0 = 0.640243
+Information gain for feature 1 = 0.383863
+Information gain for feature 2 = 1.26625
+Information gain for feature 3 = 1.32453
+***************************************************
+The highest gain is index 3 with a gain of: 1.32453
+***************************************************
+Entropy of set is 0.543564
+Information gain for feature 0 = 0.137925
+Information gain for feature 1 = 0.543564
+Information gain for feature 2 = 0.543564
+Information gain for feature 3 = 0.543564
+***************************************************
+The highest gain is index 1 with a gain of: 0.543564
+***************************************************
+Entropy of set is 0.377646
+Information gain for feature 0 = 0.377646
+Information gain for feature 1 = 0.047372
+Information gain for feature 2 = 0.377646
+Information gain for feature 3 = 0.377646
+***************************************************
+The highest gain is index 0 with a gain of: 0.377646
+***************************************************
+Entropy of set is 0.672295
+Information gain for feature 0 = 0.672295
+Information gain for feature 1 = 0.0676295
+Information gain for feature 2 = 0.672295
+Information gain for feature 3 = 0.672295
+***************************************************
+The highest gain is index 2 with a gain of: 0.672295
+***************************************************
+Entropy of set is 0.985228
+Information gain for feature 0 = 0.985228
+Information gain for feature 1 = 0.291692
+Information gain for feature 2 = 0.985228
+Information gain for feature 3 = 0.985228
+***************************************************
+The highest gain is index 1 with a gain of: 0.291692
+***************************************************
+Entropy of set is 0.663197
+Information gain for feature 0 = 0.105981
+Information gain for feature 1 = 0.663197
+Information gain for feature 2 = 0.663197
+Information gain for feature 3 = 0.663197
+***************************************************
+The highest gain is index 1 with a gain of: 0.663197
+***************************************************
+Entropy of set is 0.353359
+Information gain for feature 0 = 0.0634583
+Information gain for feature 1 = 0.353359
+Information gain for feature 2 = 0.353359
+Information gain for feature 3 = 0.353359
+***************************************************
+The highest gain is index 2 with a gain of: 0.353359
+***************************************************
+Entropy of set is 0.468996
+Information gain for feature 0 = 0.468996
+Information gain for feature 1 = 0.468996
+Information gain for feature 2 = 0.468996
+Information gain for feature 3 = 0.468996
+***************************************************
+The highest gain is index 0 with a gain of: 0.468996
+***************************************************
+Entropy of set is 0.890492
+Information gain for feature 0 = 0.890492
+Information gain for feature 1 = 0.890492
+Information gain for feature 2 = 0.890492
+Information gain for feature 3 = 0.890492
+***************************************************
+The highest gain is index 0 with a gain of: 0.890492
+***************************************************
+Entropy of set is 0.985228
+Information gain for feature 0 = 0.985228
+Information gain for feature 1 = 0.985228
+Information gain for feature 2 = 0.985228
+Information gain for feature 3 = 0.985228
+***************************************************
+The highest gain is index 2 with a gain of: 0.985228
+***************************************************
+Entropy of set is 0.811278
+Information gain for feature 0 = 0.811278
+Information gain for feature 1 = 0.811278
+Information gain for feature 2 = 0.811278
+Information gain for feature 3 = 0.811278
+***************************************************
+The highest gain is index 2 with a gain of: 0.811278
+***************************************************
+************************************************
+Printing tree ...
+ feature 3 - Petal Width 
+-------- option 0 returns class 0 - Iris-setosa
+-------- option 1 returns  feature 1 - Sepal Width (cm) 
+---------------- option 0 returns class 1 - Iris-versicolor
+---------------- option 1 returns class 1 - Iris-versicolor
+---------------- option 3 returns class 0 - Iris-setosa
+-------- option 2 returns  feature 0 - Sepal Length (cm) 
+---------------- option 1 returns class 1 - Iris-versicolor
+---------------- option 2 returns  feature 2 - Petal Length(cm) 
+------------------------ option 2 returns class 1 - Iris-versicolor
+------------------------ option 3 returns  feature 1 - Sepal Width (cm) 
+-------------------------------- option 0 returns class 2 - Iris-virginica
+-------------------------------- option 1 returns class 1 - Iris-versicolor
+-------------------------------- option 2 returns class 1 - Iris-versicolor
+---------------- option 3 returns class 1 - Iris-versicolor
+-------- option 3 returns  feature 1 - Sepal Width (cm) 
+---------------- option 1 returns  feature 2 - Petal Length(cm) 
+------------------------ option 2 returns class 2 - Iris-virginica
+------------------------ option 3 returns  feature 0 - Sepal Length (cm) 
+-------------------------------- option 1 returns class 2 - Iris-virginica
+-------------------------------- option 2 returns class 2 - Iris-virginica
+------------------------ option 4 returns class 2 - Iris-virginica
+---------------- option 2 returns  feature 0 - Sepal Length (cm) 
+------------------------ option 2 returns  feature 2 - Petal Length(cm) 
+-------------------------------- option 2 returns class 1 - Iris-versicolor
+-------------------------------- option 3 returns class 2 - Iris-virginica
+------------------------ option 3 returns  feature 2 - Petal Length(cm) 
+-------------------------------- option 3 returns class 2 - Iris-virginica
+------------------------ option 4 returns class 2 - Iris-virginica
+---------------- option 3 returns class 2 - Iris-virginica
+-------- option 4 returns class 2 - Iris-virginica
+************************************************
+testing each sample against tree....
+Total successful classifications = 144
+Total failed classifications = 6
+************************************************
+Printing the reference table...
+************************************************
+
+***********PRINTING REFERENCE TABLE***********
+Feature 0 Sepal Length (cm)
+Item[0][0] = RANGE
+max = 5.02
+---------- Less than 5.02
+max = 5.74
+---------- Equal or greater than 5.02 and less than 5.74
+max = 6.46
+---------- Equal or greater than 5.74 and less than 6.46
+max = 7.18
+---------- Equal or greater than 6.46 and less than 7.18
+max = 7.9
+---------- Equal or greater than 7.9
+Feature 1 Sepal Width (cm)
+Item[1][0] = RANGE
+max = 2.48
+---------- Less than 2.48
+max = 2.96
+---------- Equal or greater than 2.48 and less than 2.96
+max = 3.44
+---------- Equal or greater than 2.96 and less than 3.44
+max = 3.92
+---------- Equal or greater than 3.44 and less than 3.92
+max = 4.4
+---------- Equal or greater than 4.4
+Feature 2 Petal Length(cm)
+Item[2][0] = RANGE
+max = 2.26
+---------- Less than 2.26
+max = 3.42
+---------- Equal or greater than 2.26 and less than 3.42
+max = 4.58
+---------- Equal or greater than 3.42 and less than 4.58
+max = 5.74
+---------- Equal or greater than 4.58 and less than 5.74
+max = 6.9
+---------- Equal or greater than 6.9
+Feature 3 Petal Width
+Item[3][0] = RANGE
+max = 0.58
+---------- Less than 0.58
+max = 1.06
+---------- Equal or greater than 0.58 and less than 1.06
+max = 1.54
+---------- Equal or greater than 1.06 and less than 1.54
+max = 2.02
+---------- Equal or greater than 1.54 and less than 2.02
+max = 2.5
+---------- Equal or greater than 2.5
+With classes:  Iris-setosa Iris-versicolor Iris-virginica 
+**************END REF TABLE**************
+

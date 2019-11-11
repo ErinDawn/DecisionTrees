@@ -12,14 +12,6 @@
 
 using namespace std;
 
-float roundAlt(float var) 
-{
-    var = (var*100);
-    int temp = var;
-    var = temp * 1.0;
-    var = var / 100;
-    return var; 
-}
 
 float pi(float sampleWithOption, float sampleSize){
     float  result = sampleWithOption / sampleSize;

@@ -1,0 +1,27 @@
+iris.data
+4
+Sepal Length (cm)
+y
+4.3
+7.9
+5
+Sepal Width (cm)
+y
+2.0
+4.4
+5
+Petal Length(cm)
+y
+1.1
+6.9
+5
+Petal Width
+y
+0.1
+2.5
+5
+3
+Iris-setosa
+Iris-versicolor
+Iris-virginica
+150

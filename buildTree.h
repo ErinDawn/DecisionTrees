@@ -25,5 +25,7 @@ int runTree(vector<int> singleItem, Node* tree, ReferenceTable table);
 
 void printTree(Node* tree, string branch, ReferenceTable table);
 
+void testTree(DataStruct inData, ReferenceTable table, Node* tree);
+
 
 #endif //BUILDTREE_H

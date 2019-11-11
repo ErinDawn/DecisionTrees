@@ -1,0 +1,16 @@
+example.txt
+2
+Height
+n
+2
+Tall
+Short
+Dexterity
+n
+2
+Good
+Bad
+2
+Yes
+No
+10

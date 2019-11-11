@@ -11,15 +11,6 @@
 
 using namespace std;
 
-float roundFloat(float var) 
-{
-    var = (var*100);
-    int temp = var;
-    var = temp * 1.0;
-    var = var / 100;
-    return var; 
-}
-
 
 
 ReferenceTable translator(){
@@ -29,7 +20,6 @@ ReferenceTable translator(){
     table.featureNames.clear();
     table.numericalRange.clear();
     string delim = ",";
-    //get input from user
     string input = "";
     int n_features;
     int n_options;
@@ -39,7 +29,7 @@ ReferenceTable translator(){
     cout << "Some information is required about the data set" << endl;
     while (true){
         cout << "*************************************************" << endl;
-        cout << "How many data features considered by the dataset?" << endl;
+        cout << "How many features are considered by the dataset?" << endl;
         getline(cin, input);
         
         stringstream numberStream(input);
@@ -50,7 +40,7 @@ ReferenceTable translator(){
     }
     table.n_features = n_features;
     cout << "*********************************************************" << endl;
-    cout << "Next, consider the features in the order they will are listed in the data file." << endl;
+    cout << "Consider the features in the order they are listed in the data file." << endl;
     cout << "Note - all values are case sensitive." << endl;
     cout << "*********************************************************" << endl;
     
@@ -67,7 +57,7 @@ ReferenceTable translator(){
         if (input == "y"){
             table.numericalRange.push_back(true);;
             cout << endl << endl;
-            cout << "What is this features minimum value?" << endl;;
+            cout << "What is this feature's minimum value?" << endl;;
             
             while(true){
                 getline(cin, input);
@@ -98,7 +88,6 @@ ReferenceTable translator(){
                 }
             }
             float result = (maxVal - minVal) / (buckets);
-            result = roundFloat(result);
             float tempMin = 0.0;
             float tempMax = minVal + result;
             float j = 0.0;
@@ -108,13 +97,11 @@ ReferenceTable translator(){
 
             for (int k = 0; k < buckets; k++){
                 //first bucket = minval + result
-                tempMax = roundFloat(tempMax);    //rounded
                 //push value to vector
                 rangeAsString = "< " + to_string(tempMax);
                 table.rangeItem.push_back(tempMax);;
                 //increment tempMax;
                 tempMax = tempMax + result;
-
             }
 
             //for each of these - create a new entry into
@@ -129,7 +116,7 @@ ReferenceTable translator(){
             while (true){
                 cout << "**********" << endl;
                 cout << endl << endl;
-                cout << "How many possible feature values exist for this feature?" << endl;
+                cout << "How many feature values exist for this feature?" << endl;
                 getline(cin, input);
                 stringstream numberStream(input);
                 if(numberStream >> n_options){
@@ -142,7 +129,7 @@ ReferenceTable translator(){
                 while (true){   //currently acceptable only with strings
                     cout << "**********" << endl;
                     cout << endl << endl;
-                    cout << "What is possible feature value " << j << "?" << endl;
+                    cout << "What is feature value " << j << "?" << endl;
                     getline(cin, input);
                     table.strings.push_back(input);
                     break;
@@ -156,9 +143,8 @@ ReferenceTable translator(){
     while (true){
         cout << "***************************************************" << endl;
         cout << endl << endl;
-        cout << "How many possible classes does the dataset contain?" << endl;
+        cout << "How many classes does the dataset contain?" << endl;
         getline(cin, input);
-        
         stringstream numberStream(input);
         if(numberStream >> n_classes){
             break;
@@ -170,7 +156,7 @@ ReferenceTable translator(){
             while (true){   
                 cout << "**********" << endl;
                 cout << endl << endl;
-                cout << "What is possible class name " << j << "?" << endl;
+                cout << "What is class name " << j << "?" << endl;
                 getline(cin, input);
                 table.classList.push_back(input);
                 break;
@@ -193,6 +179,7 @@ ReferenceTable translator(){
     return table;
 };
 
+
 void translate(ReferenceTable table, string fileName){
     cout << "Translating file using table..." << endl;
     ifstream in(fileName);
@@ -201,7 +188,6 @@ void translate(ReferenceTable table, string fileName){
     string inString;
     int optionIndex;
     int count = 0;  //to iterate through the rangeVector
-    // int index = 0;
     bool check;
     while (getline(in, inString)){
         int length = inString.length();
@@ -210,19 +196,14 @@ void translate(ReferenceTable table, string fileName){
         int featureNumber = 0;
         count = 0;
         //count starting at zero for each sample
-        //
-        //string table count starting at zero
         //go through the verbose list - if "RANGE" refer to the range table
         //once range table refered to rangeTableCount++
 
         while ((pos = inString.find(",")) != string::npos) {    //take each feature value from the string
             check = table.numericalRange[featureNumber];    //check if feature should be a range
             if (check){// range option
-                //cout << "Translating a range option..." << endl;
                 token = inString.substr(0, pos);
                 trim(token); // token is a float value
-
-                                    //cout << "Checking range bucket for feature " << count << endl;
                 //find what index this corresponds to in table[count]
                 optionIndex = table.isRangeOption(count, token);
                 //write the index to file
@@ -231,7 +212,6 @@ void translate(ReferenceTable table, string fileName){
                 featureNumber++;    //we read one from string, then increment feature count
                 count++;    //we read one from range, then increment count
             } else {    //string option
-                //cout << "Translating a string option..." << endl;
                token = inString.substr(0, pos);
                 trim(token);
                 //find what index this corresponds to in table[featureNumber]
